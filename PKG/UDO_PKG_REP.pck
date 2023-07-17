@@ -17,16 +17,16 @@ CREATE OR REPLACE PACKAGE PARUS.UDO_PKG_REP IS
   PROCEDURE AGENT_ATTR(PIN_COM IN NUMBER, PIN_REJ IN NUMBER, PIN_NAGN IN NUMBER, OUT_FIO OUT VARCHAR2, OUT_DOL OUT VARCHAR2);
 
   FUNCTION AGENT_FIO(PIN_NAGN IN NUMBER, PIN_PADEJ in number default 0) RETURN VARCHAR2;
-  ---- По коду контрагента возвращаем его реквизит заданный паремтром PIN_VID
+  ---- РџРѕ РєРѕРґСѓ РєРѕРЅС‚СЂР°РіРµРЅС‚Р° РІРѕР·РІСЂР°С‰Р°РµРј РµРіРѕ СЂРµРєРІРёР·РёС‚ Р·Р°РґР°РЅРЅС‹Р№ РїР°СЂРµРјС‚СЂРѕРј PIN_VID
   FUNCTION AGENT_FIO(PIN_SAGN IN VARCHAR2, PIN_COM IN NUMBER, PIN_VID IN VARCHAR2) RETURN VARCHAR2;
   FUNCTION AGENT_FIO(PIN_NAGN IN NUMBER, PIN_VID IN VARCHAR2) RETURN VARCHAR2;
 
-  --- По пользователю USER возвращает мнемокод контрагента к которому у которого совйство 
+  --- РџРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ USER РІРѕР·РІСЂР°С‰Р°РµС‚ РјРЅРµРјРѕРєРѕРґ РєРѕРЅС‚СЂР°РіРµРЅС‚Р° Рє РєРѕС‚РѕСЂРѕРјСѓ Сѓ РєРѕС‚РѕСЂРѕРіРѕ СЃРѕРІР№СЃС‚РІРѕ 
   ---- PARUS_USER  = USER
   FUNCTION USER_AGENT(PIN_COM IN NUMBER) RETURN VARCHAR2;
   FUNCTION USER_AGENT(PIN_COM IN NUMBER, pin_REJ in number) RETURN VARCHAR2;
 
-  --- Значения свойства по его мнемокоду, коду раздела, RN документа и RN организации или версии
+  --- Р—РЅР°С‡РµРЅРёСЏ СЃРІРѕР№СЃС‚РІР° РїРѕ РµРіРѕ РјРЅРµРјРѕРєРѕРґСѓ, РєРѕРґСѓ СЂР°Р·РґРµР»Р°, RN РґРѕРєСѓРјРµРЅС‚Р° Рё RN РѕСЂРіР°РЅРёР·Р°С†РёРё РёР»Рё РІРµСЂСЃРёРё
   PROCEDURE DPV(PIN_COM  IN NUMBER,
                 PIN_REJ  IN NUMBER,
                 PIN_DOC  IN NUMBER,
@@ -36,20 +36,20 @@ CREATE OR REPLACE PACKAGE PARUS.UDO_PKG_REP IS
                 OUT_NUM  OUT NUMBER,
                 OUT_DAT  OUT DATE,
                 OUT_SRC  OUT NUMBER);
-  --- Строковое значение свойства                
+  --- РЎС‚СЂРѕРєРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ СЃРІРѕР№СЃС‚РІР°                
   FUNCTION DOCS_PROPS_VALS_S(PIN_COM IN NUMBER, PIN_REJ IN NUMBER, PIN_DOC IN NUMBER, PIN_CODE IN VARCHAR2, PIN_UNI IN VARCHAR2)
     RETURN VARCHAR2;
-  --- Цифровое значение свойства  
+  --- Р¦РёС„СЂРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ СЃРІРѕР№СЃС‚РІР°  
   FUNCTION DOCS_PROPS_VALS_N(PIN_COM IN NUMBER, PIN_REJ IN NUMBER, PIN_DOC IN NUMBER, PIN_CODE IN VARCHAR2, PIN_UNI IN VARCHAR2)
     RETURN NUMBER;
-  --- Датское значение свойства  
+  --- Р”Р°С‚СЃРєРѕРµ Р·РЅР°С‡РµРЅРёРµ СЃРІРѕР№СЃС‚РІР°  
   FUNCTION DOCS_PROPS_VALS_D(PIN_COM IN NUMBER, PIN_REJ IN NUMBER, PIN_DOC IN NUMBER, PIN_CODE IN VARCHAR2, PIN_UNI IN VARCHAR2)
     RETURN DATE;
-  --- Ссылка на идентификатор источника значения свойства (если значение задано через справочник или доп словарь)
+  --- РЎСЃС‹Р»РєР° РЅР° РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РёСЃС‚РѕС‡РЅРёРєР° Р·РЅР°С‡РµРЅРёСЏ СЃРІРѕР№СЃС‚РІР° (РµСЃР»Рё Р·РЅР°С‡РµРЅРёРµ Р·Р°РґР°РЅРѕ С‡РµСЂРµР· СЃРїСЂР°РІРѕС‡РЅРёРє РёР»Рё РґРѕРї СЃР»РѕРІР°СЂСЊ)
   FUNCTION DOCS_PROPS_VALS_SRC(PIN_COM IN NUMBER, PIN_REJ IN NUMBER, PIN_DOC IN NUMBER, PIN_CODE IN VARCHAR2, PIN_UNI IN VARCHAR2)
     RETURN NUMBER;
 
-  --- Примечание дополнительного словаря  по его значению
+  --- РџСЂРёРјРµС‡Р°РЅРёРµ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕРіРѕ СЃР»РѕРІР°СЂСЏ  РїРѕ РµРіРѕ Р·РЅР°С‡РµРЅРёСЋ
   FUNCTION EXTRA_DICTS_VALS_S(PIN_COM IN NUMBER, PIN_REJ IN NUMBER, PIN_ZN IN VARCHAR2, PIN_CODE IN VARCHAR2) RETURN VARCHAR2;
   FUNCTION EXTRA_DICTS_VALS_N(PIN_COM IN NUMBER, PIN_REJ IN NUMBER, PIN_ZN IN NUMBER, PIN_CODE IN VARCHAR2) RETURN VARCHAR2;
   FUNCTION EXTRA_DICTS_VALS_D(PIN_COM IN NUMBER, PIN_REJ IN NUMBER, PIN_ZN IN DATE, PIN_CODE IN VARCHAR2) RETURN VARCHAR2;
@@ -58,15 +58,15 @@ CREATE OR REPLACE PACKAGE PARUS.UDO_PKG_REP IS
   FUNCTION COMPANY_AGNLIST_OKPO(PIN_COM IN NUMBER, PIN_REJ IN NUMBER) RETURN VARCHAR2;
   FUNCTION COMPANY_RUK_RN(PIN_COM IN NUMBER, PIN_DAT IN DATE, PIN_REJ IN NUMBER) RETURN NUMBER;
   FUNCTION COMPANY_RUK_FIO(PIN_COM IN NUMBER, PIN_DAT IN DATE, PIN_REJ IN NUMBER, PIN_PADEJ in number default 0) RETURN VARCHAR2;
-  --- Если у любой из номенклатур задан код СЛП, то 1 иначе 0
+  --- Р•СЃР»Рё Сѓ Р»СЋР±РѕР№ РёР· РЅРѕРјРµРЅРєР»Р°С‚СѓСЂ Р·Р°РґР°РЅ РєРѕРґ РЎР›Рџ, С‚Рѕ 1 РёРЅР°С‡Рµ 0
   FUNCTION NOMEN_IS_DRUG(PIN_COM IN NUMBER, NOMEN_RN IN NUMBER) RETURN NUMBER;
   FUNCTION NOMEN_IS_PKU(PIN_COM IN NUMBER, NOMEN_RN IN NUMBER) RETURN NUMBER;
   FUNCTION NOMEN_IS_JNVLP(PIN_COM IN NUMBER, PIN_NOMEN IN NUMBER, PIN_MODIF IN NUMBER DEFAULT NULL) RETURN NUMBER;
   FUNCTION NOMEN_Q_UPACK(PIN_NOM_RN IN NUMBER) RETURN NUMBER;
-  --- Количество в упаковке по RN упаковки модификаци
+  --- РљРѕР»РёС‡РµСЃС‚РІРѕ РІ СѓРїР°РєРѕРІРєРµ РїРѕ RN СѓРїР°РєРѕРІРєРё РјРѕРґРёС„РёРєР°С†Рё
   FUNCTION MODIF_Q_UPACK(PIN_NOMNMODIFPACK IN NUMBER) RETURN NUMBER;
   FUNCTION NOMEN_NAME_UPACK(PIN_NOM_RN IN NUMBER) RETURN varchar2;
-  ---- Определение значения констанат
+  ---- РћРїСЂРµРґРµР»РµРЅРёРµ Р·РЅР°С‡РµРЅРёСЏ РєРѕРЅСЃС‚Р°РЅР°С‚
   FUNCTION CONST_VAL_S(PIN_COM IN NUMBER, PIN_CODE IN VARCHAR2, PIN_DATE IN DATE, PIN_REJ IN NUMBER) RETURN VARCHAR2;
   FUNCTION CONST_VAL_N(PIN_COM IN NUMBER, PIN_CODE IN VARCHAR2, PIN_DATE IN DATE, PIN_REJ IN NUMBER) RETURN NUMBER;
   FUNCTION CONST_VAL_D(PIN_COM IN NUMBER, PIN_CODE IN VARCHAR2, PIN_DATE IN DATE, PIN_REJ IN NUMBER) RETURN DATE;
@@ -79,9 +79,9 @@ CREATE OR REPLACE PACKAGE PARUS.UDO_PKG_REP IS
                       OUT_RES_D OUT DATE);
   FUNCTION GR_LS(PIN_COM IN NUMBER, PIN_NOM IN NUMBER, PIN_VID_RES IN VARCHAR2, PIN_D1 in date , PIN_d2 in date ,PIN_NO_RN in number default null, PIN_VID_MI in number default null) RETURN VARCHAR2;
   
-  --- Подсчет - сколько раз номенклатура входит в Группы учета ЛС на указанном периоде
+  --- РџРѕРґСЃС‡РµС‚ - СЃРєРѕР»СЊРєРѕ СЂР°Р· РЅРѕРјРµРЅРєР»Р°С‚СѓСЂР° РІС…РѕРґРёС‚ РІ Р“СЂСѓРїРїС‹ СѓС‡РµС‚Р° Р›РЎ РЅР° СѓРєР°Р·Р°РЅРЅРѕРј РїРµСЂРёРѕРґРµ
   FUNCTION NOMEN_IN_GR_LS(PIN_COM IN NUMBER, PIN_NOM IN NUMBER, PIN_CODE_GR IN VARCHAR2, PIN_D1 in date , PIN_D2 in date,PIN_NO_RN in number default null, PIN_VID_MI in number default null) RETURN NUMBER;
-  --- Постоянно действующие комиссии  
+  --- РџРѕСЃС‚РѕСЏРЅРЅРѕ РґРµР№СЃС‚РІСѓСЋС‰РёРµ РєРѕРјРёСЃСЃРёРё  
   FUNCTION KOMIS_ZAG(PIN_COM IN NUMBER, PIN_NAME IN VARCHAR2) RETURN SYS_REFCURSOR;
   FUNCTION KOMIS_SOST(PIN_DOC IN NUMBER, PIN_DATE IN DATE) RETURN SYS_REFCURSOR;
 
@@ -90,16 +90,16 @@ CREATE OR REPLACE PACKAGE PARUS.UDO_PKG_REP IS
   FUNCTION MONTH_NAME(PIN_N IN NUMBER, PIN_REJ IN NUMBER) RETURN VARCHAR2;
   FUNCTION MONTH_NAME(PIN_D IN DATE, PIN_REJ IN NUMBER) RETURN VARCHAR2;
 
-  FUNCTION KVARTAL_NMB(PIN_N IN number) RETURN VARCHAR2; --- Номер квартала по номеру месяца   
-  FUNCTION KVARTAL_NMB(PIN_D IN DATE) RETURN VARCHAR2; --- Номер квартала по дате
+  FUNCTION KVARTAL_NMB(PIN_N IN number) RETURN VARCHAR2; --- РќРѕРјРµСЂ РєРІР°СЂС‚Р°Р»Р° РїРѕ РЅРѕРјРµСЂСѓ РјРµСЃСЏС†Р°   
+  FUNCTION KVARTAL_NMB(PIN_D IN DATE) RETURN VARCHAR2; --- РќРѕРјРµСЂ РєРІР°СЂС‚Р°Р»Р° РїРѕ РґР°С‚Рµ
 
-  --- Остаток на дату по строке товарного запаса
+  --- РћСЃС‚Р°С‚РѕРє РЅР° РґР°С‚Сѓ РїРѕ СЃС‚СЂРѕРєРµ С‚РѕРІР°СЂРЅРѕРіРѕ Р·Р°РїР°СЃР°
   FUNCTION OST_GY(PIN_COM IN NUMBER, PIN_GY IN NUMBER, PIN_DATE IN DATE, PIN_REJ IN VARCHAR2) RETURN NUMBER;
 
-  --- Остаток на дату по модификации номенклатуры и выбранным складам
+  --- РћСЃС‚Р°С‚РѕРє РЅР° РґР°С‚Сѓ РїРѕ РјРѕРґРёС„РёРєР°С†РёРё РЅРѕРјРµРЅРєР»Р°С‚СѓСЂС‹ Рё РІС‹Р±СЂР°РЅРЅС‹Рј СЃРєР»Р°РґР°Рј
   FUNCTION OST_NOMMODIF(PIN_COM IN NUMBER, PIN_NMRN IN NUMBER, PIN_DATE IN DATE, PIN_STORE IN VARCHAR2, PIN_REJ IN VARCHAR2)
     RETURN NUMBER;
- ---Остаток на дату по модификации по одному складк
+ ---РћСЃС‚Р°С‚РѕРє РЅР° РґР°С‚Сѓ РїРѕ РјРѕРґРёС„РёРєР°С†РёРё РїРѕ РѕРґРЅРѕРјСѓ СЃРєР»Р°РґРє
   FUNCTION OST_NOMMODIF(PIN_COM IN NUMBER, PIN_NMRN IN NUMBER, PIN_DATE IN DATE, PIN_STORE IN number, PIN_REJ IN VARCHAR2)
     RETURN NUMBER;   
     
@@ -118,7 +118,7 @@ CREATE OR REPLACE PACKAGE PARUS.UDO_PKG_REP IS
                       OUT_DOL      OUT VARCHAR2,
                       OUT_DEP_CODE OUT VARCHAR2,
                       OUT_DEP_NAME OUT VARCHAR2);
-  --- даляет из конца строки PIN_STR набор символов PIN_DEL_SYMB  -  PIN_NUMb раз                      
+  --- РґР°Р»СЏРµС‚ РёР· РєРѕРЅС†Р° СЃС‚СЂРѕРєРё PIN_STR РЅР°Р±РѕСЂ СЃРёРјРІРѕР»РѕРІ PIN_DEL_SYMB  -  PIN_NUMb СЂР°Р·                      
   FUNCTION DEL_LAST_CHAR(PIN_STR IN VARCHAR2, PIN_DEL_SYMB IN VARCHAR2, PIN_NUMB IN NUMBER) RETURN VARCHAR2;
   FUNCTION FRAC_PART_NUMBER(PIN_NUMBER IN NUMBER, PIN_TR_1 IN NUMBER, PIN_TR_2 IN NUMBER) RETURN VARCHAR2;
 
@@ -131,7 +131,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
     V_RES PARUS.AGNLIST.RN%TYPE;
 
   BEGIN
-    ---PIN_REJ 0-- Главный бухгалтер, 1- Руководитель
+    ---PIN_REJ 0-- Р“Р»Р°РІРЅС‹Р№ Р±СѓС…РіР°Р»С‚РµСЂ, 1- Р СѓРєРѕРІРѕРґРёС‚РµР»СЊ
     BEGIN
       SELECT GB.AGENT
         INTO V_RES
@@ -163,7 +163,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
 
       SELECT
            case PIN_PADEJ
-              when 0 then --- Именительный сокращенный
+              when 0 then --- РРјРµРЅРёС‚РµР»СЊРЅС‹Р№ СЃРѕРєСЂР°С‰РµРЅРЅС‹Р№
 
              CASE
                WHEN MOL.AGNFAMILYNAME IS NULL THEN
@@ -173,7 +173,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
                 NVL2(MOL.AGNLASTNAME, ' ' || SUBSTR(MOL.AGNLASTNAME, 1, 1) || '.', '')
              END
 
-              when -1 then --- Именительный сокращенный Иимя, Отчество, Фамилия
+              when -1 then --- РРјРµРЅРёС‚РµР»СЊРЅС‹Р№ СЃРѕРєСЂР°С‰РµРЅРЅС‹Р№ РРёРјСЏ, РћС‚С‡РµСЃС‚РІРѕ, Р¤Р°РјРёР»РёСЏ
 
              CASE
                WHEN MOL.AGNFAMILYNAME IS NULL THEN
@@ -184,7 +184,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
              END
 
 
-             when 10 then --- Именительный полный
+             when 10 then --- РРјРµРЅРёС‚РµР»СЊРЅС‹Р№ РїРѕР»РЅС‹Р№
 
              CASE
                WHEN MOL.AGNFAMILYNAME IS NULL THEN
@@ -192,7 +192,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
                ELSE
                 MOL.AGNFAMILYNAME || ' ' ||MOL.AGNFIRSTNAME ||' '||MOL.AGNLASTNAME
              END
-             When 1 then  --- Родительный  фамилия физического лица (от кого)
+             When 1 then  --- Р РѕРґРёС‚РµР»СЊРЅС‹Р№  С„Р°РјРёР»РёСЏ С„РёР·РёС‡РµСЃРєРѕРіРѕ Р»РёС†Р° (РѕС‚ РєРѕРіРѕ)
 
              CASE
                WHEN MOL.AGNFAMILYNAME_FR IS NULL THEN
@@ -201,7 +201,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
                 MOL.AGNFAMILYNAME_FR || ' ' ||MOL.AGNFIRSTNAME_FR ||' '||MOL.AGNLASTNAME_FR
              END
 
-             When 2 then  --- Дательный  - имя физического лица (кому)
+             When 2 then  --- Р”Р°С‚РµР»СЊРЅС‹Р№  - РёРјСЏ С„РёР·РёС‡РµСЃРєРѕРіРѕ Р»РёС†Р° (РєРѕРјСѓ)
 
              CASE
                WHEN MOL.AGNFAMILYNAME_TO IS NULL THEN
@@ -210,7 +210,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
                 MOL.AGNFAMILYNAME_TO || ' ' ||MOL.AGNFIRSTNAME_TO ||' '||MOL.AGNLASTNAME_TO
              END
 
-             When 3 then  ---  Винительный
+             When 3 then  ---  Р’РёРЅРёС‚РµР»СЊРЅС‹Р№
 
              CASE
                WHEN MOL.AGNFAMILYNAME_AC IS NULL THEN
@@ -227,7 +227,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
                 MOL.AGNFAMILYNAME_AC || ' ' ||substr(MOL.AGNFIRSTNAME_AC,1,1) ||'. '||substr(MOL.AGNLASTNAME_AC,1,1)||'. '
              END
 
-             When 4 then  ---  творительный падеж
+             When 4 then  ---  С‚РІРѕСЂРёС‚РµР»СЊРЅС‹Р№ РїР°РґРµР¶
 
              CASE
                WHEN MOL.AGNFAMILYNAME_ABL IS NULL THEN
@@ -238,7 +238,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
 
 
           ELSE
-             MOL.AGNABBR --- Неправильно задан паремтр Падеж
+             MOL.AGNABBR --- РќРµРїСЂР°РІРёР»СЊРЅРѕ Р·Р°РґР°РЅ РїР°СЂРµРјС‚СЂ РџР°РґРµР¶
           end
 
 
@@ -255,7 +255,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
   END AGENT_FIO;
 
   FUNCTION AGENT_FIO(PIN_SAGN IN VARCHAR2, PIN_COM IN NUMBER, PIN_VID IN VARCHAR2) RETURN VARCHAR2 AS
-    --- Мнемокод контрагента, компания, вид выводимой информации
+    --- РњРЅРµРјРѕРєРѕРґ РєРѕРЅС‚СЂР°РіРµРЅС‚Р°, РєРѕРјРїР°РЅРёСЏ, РІРёРґ РІС‹РІРѕРґРёРјРѕР№ РёРЅС„РѕСЂРјР°С†РёРё
     V_RES VARCHAR2(2000) := '';
 
     V_FIELD VARCHAR2(2000) := CASE PIN_VID
@@ -290,7 +290,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
 
   FUNCTION AGENT_FIO(PIN_NAGN IN NUMBER, PIN_VID IN VARCHAR2) RETURN VARCHAR2 is
 
-    --- RN контрагента, компания, вид выводимой информации
+    --- RN РєРѕРЅС‚СЂР°РіРµРЅС‚Р°, РєРѕРјРїР°РЅРёСЏ, РІРёРґ РІС‹РІРѕРґРёРјРѕР№ РёРЅС„РѕСЂРјР°С†РёРё
     V_RES VARCHAR2(2000) := '';
 
     V_FIELD VARCHAR2(2000) := CASE PIN_VID
@@ -327,8 +327,8 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
 
   BEGIN
 
-    /* PIN_REJ  (0-гл. бухгалтер, 1-руководитель)
-       PIN_nAGN -- RN организации у которой ищем руководство
+    /* PIN_REJ  (0-РіР». Р±СѓС…РіР°Р»С‚РµСЂ, 1-СЂСѓРєРѕРІРѕРґРёС‚РµР»СЊ)
+       PIN_nAGN -- RN РѕСЂРіР°РЅРёР·Р°С†РёРё Сѓ РєРѕС‚РѕСЂРѕР№ РёС‰РµРј СЂСѓРєРѕРІРѕРґСЃС‚РІРѕ
     */
     BEGIN
 
@@ -358,8 +358,8 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
     V_RES VARCHAR2(520);
   BEGIN
 
-    /* PIN_REJ  (0-гл. бухгалтер, 1-руководитель)
-       PIN_nAGN -- RN организации у которой ищем руководство
+    /* PIN_REJ  (0-РіР». Р±СѓС…РіР°Р»С‚РµСЂ, 1-СЂСѓРєРѕРІРѕРґРёС‚РµР»СЊ)
+       PIN_nAGN -- RN РѕСЂРіР°РЅРёР·Р°С†РёРё Сѓ РєРѕС‚РѕСЂРѕР№ РёС‰РµРј СЂСѓРєРѕРІРѕРґСЃС‚РІРѕ
     */
     BEGIN
 
@@ -391,7 +391,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
     V_RES PARUS.AGNLIST.AGNABBR%TYPE;
   BEGIN
 
-    /* PIN_REJ  (0-гл. бухгалтер, 1-руководитель)  */
+    /* PIN_REJ  (0-РіР». Р±СѓС…РіР°Р»С‚РµСЂ, 1-СЂСѓРєРѕРІРѕРґРёС‚РµР»СЊ)  */
     BEGIN
 
       SELECT M.AGNABBR
@@ -420,7 +420,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
   END RUK_AGENT_CODE;
 
   FUNCTION RUK_AGENT_FIO(PIN_COM IN NUMBER, PIN_SAGN IN VARCHAR2, PIN_DAT IN DATE, PIN_REJ IN NUMBER) RETURN VARCHAR2 AS
-    /* PIN_REJ  (0-гл. бухгалтер, 1-руководитель)  */
+    /* PIN_REJ  (0-РіР». Р±СѓС…РіР°Р»С‚РµСЂ, 1-СЂСѓРєРѕРІРѕРґРёС‚РµР»СЊ)  */
     V_RES VARCHAR2(520);
   BEGIN
     BEGIN
@@ -520,7 +520,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
   BEGIN
 
     IF PIN_REJ = 1 THEN
-      --- Для контрагента SAGENT Выводим Фамилия И.О. Должность, Телефон из вкладки ФИЗ лицо контрагента
+      --- Р”Р»СЏ РєРѕРЅС‚СЂР°РіРµРЅС‚Р° SAGENT Р’С‹РІРѕРґРёРј Р¤Р°РјРёР»РёСЏ Р.Рћ. Р”РѕР»Р¶РЅРѕСЃС‚СЊ, РўРµР»РµС„РѕРЅ РёР· РІРєР»Р°РґРєРё Р¤РР— Р»РёС†Рѕ РєРѕРЅС‚СЂР°РіРµРЅС‚Р°
       BEGIN
         SELECT TRIM(A.AGNFAMILYNAME || ' ' || NVL2(A.AGNFIRSTNAME, SUBSTR(A.AGNFIRSTNAME, 1, 1) || '.', '') ||
                     NVL2(A.AGNLASTNAME, SUBSTR(A.AGNLASTNAME, 1, 1) || '.', '')),
@@ -537,7 +537,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
           NULL;
       END;
     ELSIF PIN_REJ = 10 THEN
-      --- --- Для контрагента SAGENT Выводим  ПОЛНОЕ ФИО , Должность, Телефон из вкладки ФИЗ лицо контрагента
+      --- --- Р”Р»СЏ РєРѕРЅС‚СЂР°РіРµРЅС‚Р° SAGENT Р’С‹РІРѕРґРёРј  РџРћР›РќРћР• Р¤РРћ , Р”РѕР»Р¶РЅРѕСЃС‚СЊ, РўРµР»РµС„РѕРЅ РёР· РІРєР»Р°РґРєРё Р¤РР— Р»РёС†Рѕ РєРѕРЅС‚СЂР°РіРµРЅС‚Р°
       BEGIN
         SELECT TRIM(A.AGNFAMILYNAME || ' ' || NVL(A.AGNFIRSTNAME, '') || ' ' || NVL(A.AGNLASTNAME, '')), A.EMPPOST, A.PHONE
           INTO OUT_FIO, OUT_DOL, OUT_TEL
@@ -552,7 +552,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
       END;
 
     ELSIF PIN_REJ = 2 THEN
-      --- --- Для контрагента SAGENT Выводим  Фамилия Имя Отчество Должность, Телефон из вкладки ФИЗ лицо контрагента
+      --- --- Р”Р»СЏ РєРѕРЅС‚СЂР°РіРµРЅС‚Р° SAGENT Р’С‹РІРѕРґРёРј  Р¤Р°РјРёР»РёСЏ РРјСЏ РћС‚С‡РµСЃС‚РІРѕ Р”РѕР»Р¶РЅРѕСЃС‚СЊ, РўРµР»РµС„РѕРЅ РёР· РІРєР»Р°РґРєРё Р¤РР— Р»РёС†Рѕ РєРѕРЅС‚СЂР°РіРµРЅС‚Р°
       BEGIN
         SELECT TRIM(A.AGNFAMILYNAME || ' ' || NVL2(A.AGNFIRSTNAME, SUBSTR(A.AGNFIRSTNAME, 1, 1) || '.', '') ||
                     NVL2(A.AGNLASTNAME, SUBSTR(A.AGNLASTNAME, 1, 1) || '.', '')),
@@ -591,29 +591,29 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
       SELECT AG.AGNABBR INTO V_AGNABBR FROM AGNLIST AG WHERE AG.RN = PIN_NAGN;
     EXCEPTION
       WHEN NO_DATA_FOUND THEN
-        P_EXCEPTION(PIN_REJ, 'Контрагент с RN ' || PIN_NAGN || ' не найден');
+        P_EXCEPTION(PIN_REJ, 'РљРѕРЅС‚СЂР°РіРµРЅС‚ СЃ RN ' || PIN_NAGN || ' РЅРµ РЅР°Р№РґРµРЅ');
     END;
 
     UDO_PKG_REP.AGENT_ATTR(PIN_COM, PIN_REJ, V_AGNABBR, OUT_FIO, OUT_DOL);
 
   END;
 
-  /* Процедура возвращает все три поля таблицы значения свойств  */
-  PROCEDURE DPV(PIN_COM  IN NUMBER, ---Организация
-                PIN_REJ  IN NUMBER, ---Режим Если  = 1, то сообщение при отсутсвии свойства с кодом PIN_DOC не выводится
-                PIN_DOC  IN NUMBER, -- RN документа
-                PIN_CODE IN VARCHAR2, -- Код свойства
-                PIN_UNI  IN VARCHAR2, -- Код раздела документта
-                OUT_STR  OUT VARCHAR2, --- Значениес типом строка
-                OUT_NUM  OUT NUMBER, -- Значение с типом Число
-                OUT_DAT  OUT DATE, -- Хначение с типом Дата
-                OUT_SRC  OUT NUMBER --- Ссылка на справочник (SOURCE or SOURCE_EXT)
+  /* РџСЂРѕС†РµРґСѓСЂР° РІРѕР·РІСЂР°С‰Р°РµС‚ РІСЃРµ С‚СЂРё РїРѕР»СЏ С‚Р°Р±Р»РёС†С‹ Р·РЅР°С‡РµРЅРёСЏ СЃРІРѕР№СЃС‚РІ  */
+  PROCEDURE DPV(PIN_COM  IN NUMBER, ---РћСЂРіР°РЅРёР·Р°С†РёСЏ
+                PIN_REJ  IN NUMBER, ---Р РµР¶РёРј Р•СЃР»Рё  = 1, С‚Рѕ СЃРѕРѕР±С‰РµРЅРёРµ РїСЂРё РѕС‚СЃСѓС‚СЃРІРёРё СЃРІРѕР№СЃС‚РІР° СЃ РєРѕРґРѕРј PIN_DOC РЅРµ РІС‹РІРѕРґРёС‚СЃСЏ
+                PIN_DOC  IN NUMBER, -- RN РґРѕРєСѓРјРµРЅС‚Р°
+                PIN_CODE IN VARCHAR2, -- РљРѕРґ СЃРІРѕР№СЃС‚РІР°
+                PIN_UNI  IN VARCHAR2, -- РљРѕРґ СЂР°Р·РґРµР»Р° РґРѕРєСѓРјРµРЅС‚С‚Р°
+                OUT_STR  OUT VARCHAR2, --- Р—РЅР°С‡РµРЅРёРµСЃ С‚РёРїРѕРј СЃС‚СЂРѕРєР°
+                OUT_NUM  OUT NUMBER, -- Р—РЅР°С‡РµРЅРёРµ СЃ С‚РёРїРѕРј Р§РёСЃР»Рѕ
+                OUT_DAT  OUT DATE, -- РҐРЅР°С‡РµРЅРёРµ СЃ С‚РёРїРѕРј Р”Р°С‚Р°
+                OUT_SRC  OUT NUMBER --- РЎСЃС‹Р»РєР° РЅР° СЃРїСЂР°РІРѕС‡РЅРёРє (SOURCE or SOURCE_EXT)
                 ) AS
-    --- Значение с типом дата
+    --- Р—РЅР°С‡РµРЅРёРµ СЃ С‚РёРїРѕРј РґР°С‚Р°
 
     V_SV_RN PARUS.DOCS_PROPS.RN%TYPE;
   BEGIN
-    ---- Найдем RN  свойства
+    ---- РќР°Р№РґРµРј RN  СЃРІРѕР№СЃС‚РІР°
     BEGIN
       SELECT SV.RN
         INTO V_SV_RN
@@ -624,12 +624,12 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
          AND V.UNITCODE = 'DocsProperties';
     EXCEPTION
       WHEN NO_DATA_FOUND THEN
-        P_EXCEPTION(PIN_REJ, 'Свойство с мнемокодом ' || PIN_CODE || ' не найдено');
-        RETURN; --- дальше искать нет смысла
+        P_EXCEPTION(PIN_REJ, 'РЎРІРѕР№СЃС‚РІРѕ СЃ РјРЅРµРјРѕРєРѕРґРѕРј ' || PIN_CODE || ' РЅРµ РЅР°Р№РґРµРЅРѕ');
+        RETURN; --- РґР°Р»СЊС€Рµ РёСЃРєР°С‚СЊ РЅРµС‚ СЃРјС‹СЃР»Р°
     END;
 
     BEGIN
-      -- Найдем значение свойства
+      -- РќР°Р№РґРµРј Р·РЅР°С‡РµРЅРёРµ СЃРІРѕР№СЃС‚РІР°
       SELECT ZSV.STR_VALUE, ZSV.NUM_VALUE, ZSV.DATE_VALUE, NVL(ZSV.SOURCE, ZSV.SOURCE_EXT)
         INTO OUT_STR, OUT_NUM, OUT_DAT, OUT_SRC
         FROM PARUS.DOCS_PROPS_VALS ZSV
@@ -638,7 +638,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
          AND ZSV.UNITCODE = PIN_UNI;
     EXCEPTION
       WHEN NO_DATA_FOUND THEN
-        NULL; --- Если надо, то предупреждение выводили выше.
+        NULL; --- Р•СЃР»Рё РЅР°РґРѕ, С‚Рѕ РїСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ РІС‹РІРѕРґРёР»Рё РІС‹С€Рµ.
     END;
   END DPV;
 
@@ -712,7 +712,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
          AND SLV.STR_VALUE = PIN_ZN;
     EXCEPTION
       WHEN NO_DATA_FOUND THEN
-        P_EXCEPTION(PIN_REJ, 'Значение ' || PIN_ZN || ' не найдено в словаре ' || PIN_CODE);
+        P_EXCEPTION(PIN_REJ, 'Р—РЅР°С‡РµРЅРёРµ ' || PIN_ZN || ' РЅРµ РЅР°Р№РґРµРЅРѕ РІ СЃР»РѕРІР°СЂРµ ' || PIN_CODE);
         V_RES := '-';
     END;
     RETURN V_RES;
@@ -734,7 +734,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
          AND SLV.NUM_VALUE = PIN_ZN;
     EXCEPTION
       WHEN NO_DATA_FOUND THEN
-        P_EXCEPTION(PIN_REJ, 'Значение ' || PIN_ZN || ' не найдено в словаре ' || PIN_CODE);
+        P_EXCEPTION(PIN_REJ, 'Р—РЅР°С‡РµРЅРёРµ ' || PIN_ZN || ' РЅРµ РЅР°Р№РґРµРЅРѕ РІ СЃР»РѕРІР°СЂРµ ' || PIN_CODE);
         V_RES := '';
     END;
     RETURN V_RES;
@@ -755,7 +755,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
          AND SLV.DATE_VALUE = PIN_ZN;
     EXCEPTION
       WHEN NO_DATA_FOUND THEN
-        P_EXCEPTION(PIN_REJ, 'Значение ' || PIN_ZN || ' не найдено в словаре ' || PIN_CODE);
+        P_EXCEPTION(PIN_REJ, 'Р—РЅР°С‡РµРЅРёРµ ' || PIN_ZN || ' РЅРµ РЅР°Р№РґРµРЅРѕ РІ СЃР»РѕРІР°СЂРµ ' || PIN_CODE);
         V_RES := '';
     END;
     RETURN V_RES;
@@ -774,7 +774,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
     EXCEPTION
       WHEN NO_DATA_FOUND THEN
         P_EXCEPTION(PIN_REJ,
-                    'Организация для компании с RN ' || NVL(TO_CHAR(PIN_COM), '') || ' не найдена');
+                    'РћСЂРіР°РЅРёР·Р°С†РёСЏ РґР»СЏ РєРѕРјРїР°РЅРёРё СЃ RN ' || NVL(TO_CHAR(PIN_COM), '') || ' РЅРµ РЅР°Р№РґРµРЅР°');
     END;
     RETURN V_AGN;
   END;
@@ -791,13 +791,13 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
     EXCEPTION
       WHEN NO_DATA_FOUND THEN
         P_EXCEPTION(PIN_REJ,
-                    'Организация для компании с RN ' || NVL(TO_CHAR(PIN_COM), '') || ' не найдена');
+                    'РћСЂРіР°РЅРёР·Р°С†РёСЏ РґР»СЏ РєРѕРјРїР°РЅРёРё СЃ RN ' || NVL(TO_CHAR(PIN_COM), '') || ' РЅРµ РЅР°Р№РґРµРЅР°');
     END;
     RETURN V_OKPO;
   END;
 
   FUNCTION COMPANY_RUK_RN(PIN_COM IN NUMBER, PIN_DAT IN DATE, PIN_REJ IN NUMBER) RETURN NUMBER AS
-    V_RES AGNLIST.RN%TYPE; ---PIN_REJ 0-- Главный бухгалтер, 1- Руководитель
+    V_RES AGNLIST.RN%TYPE; ---PIN_REJ 0-- Р“Р»Р°РІРЅС‹Р№ Р±СѓС…РіР°Р»С‚РµСЂ, 1- Р СѓРєРѕРІРѕРґРёС‚РµР»СЊ
   BEGIN
     BEGIN
       FOR CUR IN (SELECT C.AGENT FROM COMPANIES C WHERE C.RN = PIN_COM) LOOP
@@ -808,7 +808,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
   END;
 
   FUNCTION COMPANY_RUK_FIO(PIN_COM IN NUMBER, PIN_DAT IN DATE, PIN_REJ IN NUMBER, PIN_PADEJ in number default 0) RETURN VARCHAR2 AS
-    --PIN_REJ 0-- Главный бухгалтер, 1- Руководитель
+    --PIN_REJ 0-- Р“Р»Р°РІРЅС‹Р№ Р±СѓС…РіР°Р»С‚РµСЂ, 1- Р СѓРєРѕРІРѕРґРёС‚РµР»СЊ
   BEGIN
     RETURN UDO_PKG_REP.AGENT_FIO(UDO_PKG_REP.COMPANY_RUK_RN(PIN_COM, PIN_DAT, PIN_REJ),PIN_PADEJ );
   END;
@@ -824,7 +824,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
          AND PARUS.UDO_PKG_REP.DOCS_PROPS_VALS_S(PIN_COM  => PIN_COM,
                                                  PIN_REJ  => 1,
                                                  PIN_DOC  => NM.RN,
-                                                 PIN_CODE => 'СЛП',
+                                                 PIN_CODE => 'РЎР›Рџ',
                                                  PIN_UNI  => 'NomenclatorModification') IS NOT NULL
          AND ROWNUM = 1;
     EXCEPTION
@@ -836,7 +836,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
   END;
 
   FUNCTION NOMEN_IS_PKU(PIN_COM IN NUMBER, NOMEN_RN IN NUMBER) RETURN NUMBER IS
-    --- Признак количественного учета из группы ЛС
+    --- РџСЂРёР·РЅР°Рє РєРѕР»РёС‡РµСЃС‚РІРµРЅРЅРѕРіРѕ СѓС‡РµС‚Р° РёР· РіСЂСѓРїРїС‹ Р›РЎ
     V_RES INTEGER;
   BEGIN
 
@@ -850,7 +850,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
   END;
 
   FUNCTION NOMEN_Q_UPACK(PIN_NOM_RN IN NUMBER) RETURN NUMBER IS
-    V_RES NUMBER(17, 5); --- Количество ОЕИ в упаковке, если упаковки нет, то 1
+    V_RES NUMBER(17, 5); --- РљРѕР»РёС‡РµСЃС‚РІРѕ РћР•Р РІ СѓРїР°РєРѕРІРєРµ, РµСЃР»Рё СѓРїР°РєРѕРІРєРё РЅРµС‚, С‚Рѕ 1
   BEGIN
     BEGIN
       SELECT PAK.QUANT
@@ -866,7 +866,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
   END;
 
   FUNCTION MODIF_Q_UPACK(PIN_NOMNMODIFPACK IN NUMBER) RETURN NUMBER is
-    V_RES NUMBER(17, 5); --- Количество ОЕИ в упаковке, если упаковки нет, то 1
+    V_RES NUMBER(17, 5); --- РљРѕР»РёС‡РµСЃС‚РІРѕ РћР•Р РІ СѓРїР°РєРѕРІРєРµ, РµСЃР»Рё СѓРїР°РєРѕРІРєРё РЅРµС‚, С‚Рѕ 1
 
   begin
     begin
@@ -884,7 +884,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
   end;
 
   FUNCTION NOMEN_NAME_UPACK(PIN_NOM_RN IN NUMBER) RETURN varchar2 IS
-    V_RES NOMNPACK.code%type; ---Наименование упаковки, если упаковки нет, то Null
+    V_RES NOMNPACK.code%type; ---РќР°РёРјРµРЅРѕРІР°РЅРёРµ СѓРїР°РєРѕРІРєРё, РµСЃР»Рё СѓРїР°РєРѕРІРєРё РЅРµС‚, С‚Рѕ Null
   BEGIN
     BEGIN
       SELECT PAK.code
@@ -900,7 +900,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
   END;
 
   FUNCTION NOMEN_IS_JNVLP(PIN_COM IN NUMBER, PIN_NOMEN IN NUMBER, PIN_MODIF IN NUMBER DEFAULT NULL) RETURN NUMBER IS
-    --- Признак ЖНВЛП по RN номенклатуры или модификации
+    --- РџСЂРёР·РЅР°Рє Р–РќР’Р›Рџ РїРѕ RN РЅРѕРјРµРЅРєР»Р°С‚СѓСЂС‹ РёР»Рё РјРѕРґРёС„РёРєР°С†РёРё
     V_RES INTEGER;
   BEGIN
 
@@ -908,9 +908,9 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
       V_RES := CASE PARUS.UDO_PKG_REP.DOCS_PROPS_VALS_S(PIN_COM  => PIN_COM,
                                                     PIN_REJ  => 1,
                                                     PIN_DOC  => PIN_NOMEN,
-                                                    PIN_CODE => 'ЖНВЛП',
+                                                    PIN_CODE => 'Р–РќР’Р›Рџ',
                                                     PIN_UNI  => 'Nomenclator')
-                 WHEN 'Да' THEN
+                 WHEN 'Р”Р°' THEN
                   1
                  ELSE
                   0
@@ -921,9 +921,9 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
         SELECT CASE PARUS.UDO_PKG_REP.DOCS_PROPS_VALS_S(PIN_COM  => PIN_COM,
                                                     PIN_REJ  => 1,
                                                     PIN_DOC  => NM.PRN,
-                                                    PIN_CODE => 'ЖНВЛП',
+                                                    PIN_CODE => 'Р–РќР’Р›Рџ',
                                                     PIN_UNI  => 'Nomenclator')
-                 WHEN 'Да' THEN
+                 WHEN 'Р”Р°' THEN
                   1
                  ELSE
                   0
@@ -953,7 +953,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
 
   BEGIN
     BEGIN
-      --- Найдем значение на дату
+      --- РќР°Р№РґРµРј Р·РЅР°С‡РµРЅРёРµ РЅР° РґР°С‚Сѓ
       SELECT CV.NUMVALUE, CV.STRVALUE, CV.DATEVALUE
         INTO OUT_RES_N, OUT_RES_S, OUT_RES_D
         FROM CONSTLST CL, CONSTVAL CV
@@ -963,7 +963,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
          AND PIN_DATE BETWEEN CV.DATEFROM AND NVL(CV.DATETO, PIN_DATE);
     EXCEPTION
       WHEN NO_DATA_FOUND THEN
-        --- Пробуем считать основное значение
+        --- РџСЂРѕР±СѓРµРј СЃС‡РёС‚Р°С‚СЊ РѕСЃРЅРѕРІРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ
         BEGIN
           SELECT CL.NUMVALUE, CL.STRVALUE, CL.DATEVALUE
             INTO OUT_RES_N, OUT_RES_S, OUT_RES_D
@@ -973,7 +973,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
         EXCEPTION
           WHEN NO_DATA_FOUND THEN
             P_EXCEPTION(PIN_REJ,
-                        'Значение константы "' || PIN_CODE || '" на дату ' || TO_CHAR(PIN_DATE, 'DD.MM.YYYY') || ' не найдено');
+                        'Р—РЅР°С‡РµРЅРёРµ РєРѕРЅСЃС‚Р°РЅС‚С‹ "' || PIN_CODE || '" РЅР° РґР°С‚Сѓ ' || TO_CHAR(PIN_DATE, 'DD.MM.YYYY') || ' РЅРµ РЅР°Р№РґРµРЅРѕ');
         END;
     END;
   END;
@@ -1020,7 +1020,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
     S_CODE_GR VARCHAR2(2000) := REPLACE(REPLACE(PIN_CODE_GR, SSTAR, '%'), SQUESTSYMB, '_');
 
   BEGIN
-    --- Если PIN_NO_RN задан, то указанная запись в группе ЛС не учитывается, чтоб при добавлении не считать самого себя
+    --- Р•СЃР»Рё PIN_NO_RN Р·Р°РґР°РЅ, С‚Рѕ СѓРєР°Р·Р°РЅРЅР°СЏ Р·Р°РїРёСЃСЊ РІ РіСЂСѓРїРїРµ Р›РЎ РЅРµ СѓС‡РёС‚С‹РІР°РµС‚СЃСЏ, С‡С‚РѕР± РїСЂРё РґРѕР±Р°РІР»РµРЅРёРё РЅРµ СЃС‡РёС‚Р°С‚СЊ СЃР°РјРѕРіРѕ СЃРµР±СЏ
 
       SELECT count(distinct GRLS.rn)
         INTO V_Q
@@ -1029,14 +1029,14 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
          and (PIN_VID_MI is null or GRLS.KIND = PIN_VID_MI)
          AND PARUS.UDO_F_STRINLIKE(GRLS.CODE, S_CODE_GR, SDELIMITER, SBLANK, SNOTSYMB) = 1
          AND GRLS.RN = SG.PRN
-         and ( PIN_NO_RN is null or SG.rn != PIN_NO_RN)--- Для проверок при добавлении, чтоб запись сама себя не видела
+         and ( PIN_NO_RN is null or SG.rn != PIN_NO_RN)--- Р”Р»СЏ РїСЂРѕРІРµСЂРѕРє РїСЂРё РґРѕР±Р°РІР»РµРЅРёРё, С‡С‚РѕР± Р·Р°РїРёСЃСЊ СЃР°РјР° СЃРµР±СЏ РЅРµ РІРёРґРµР»Р°
          AND SG.NOMENCLATURE = PIN_NOM
          and not (nvl(PIN_D2, sg.date_beg) <  sg.date_beg or  nvl(sg.date_end, pin_D1) < PIN_d1)
          ;
 
-    case V_Q when 0 then V_NRES := 0; --- не входит в группы
-             when 1 then V_NRES := 1; --- входит 1 группу
-             else   V_NRES := 2; -- Входит в несколько групп
+    case V_Q when 0 then V_NRES := 0; --- РЅРµ РІС…РѕРґРёС‚ РІ РіСЂСѓРїРїС‹
+             when 1 then V_NRES := 1; --- РІС…РѕРґРёС‚ 1 РіСЂСѓРїРїСѓ
+             else   V_NRES := 2; -- Р’С…РѕРґРёС‚ РІ РЅРµСЃРєРѕР»СЊРєРѕ РіСЂСѓРїРї
     end case;
 
     RETURN V_NRES;
@@ -1046,14 +1046,14 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
     V_RES      VARCHAR2(2000) := '';
     SDELIMITER VARCHAR2(20) := PARUS.GET_OPTIONS_STR('SeqSymb');
   BEGIN
-    --- Выводится код или наименованиегруппы ЛС (в зависимости от параметра)
-    --- номенклатура может состоять в нескольких группах ЛС
+    --- Р’С‹РІРѕРґРёС‚СЃСЏ РєРѕРґ РёР»Рё РЅР°РёРјРµРЅРѕРІР°РЅРёРµРіСЂСѓРїРїС‹ Р›РЎ (РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РїР°СЂР°РјРµС‚СЂР°)
+    --- РЅРѕРјРµРЅРєР»Р°С‚СѓСЂР° РјРѕР¶РµС‚ СЃРѕСЃС‚РѕСЏС‚СЊ РІ РЅРµСЃРєРѕР»СЊРєРёС… РіСЂСѓРїРїР°С… Р›РЎ
     FOR CUR IN (SELECT distinct TRIM(RG.NAME) GLS_NAME, TRIM(RG.CODE) GLS_CODE
                   FROM PARUS.DRUG_REGISTR_GROUPS RG, PARUS.DRUG_REGISTR_GROUPS_SP SG
                  WHERE RG.COMPANY = PIN_COM
                    and (PIN_VID_MI is null or RG.KIND = PIN_VID_MI)
                    AND RG.RN = SG.PRN
-                   and ( PIN_NO_RN is null or SG.rn != PIN_NO_RN)--- Для проверок при добавлении, чтоб запись сама себя не видела
+                   and ( PIN_NO_RN is null or SG.rn != PIN_NO_RN)--- Р”Р»СЏ РїСЂРѕРІРµСЂРѕРє РїСЂРё РґРѕР±Р°РІР»РµРЅРёРё, С‡С‚РѕР± Р·Р°РїРёСЃСЊ СЃР°РјР° СЃРµР±СЏ РЅРµ РІРёРґРµР»Р°
                    AND SG.COMPANY = RG.COMPANY
                    AND SG.NOMENCLATURE = PIN_NOM
                    and not (nvl(PIN_D2, sg.date_beg) <  sg.date_beg or  nvl(sg.date_end, pin_D1) < PIN_d1)
@@ -1071,15 +1071,15 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
   END;
 
   FUNCTION KOMIS_ZAG(PIN_COM IN NUMBER, PIN_NAME IN VARCHAR2) RETURN SYS_REFCURSOR IS
-    /* Функция выводит данные для заголовка комиссии, записывать их надо в
+    /* Р¤СѓРЅРєС†РёСЏ РІС‹РІРѕРґРёС‚ РґР°РЅРЅС‹Рµ РґР»СЏ Р·Р°РіРѕР»РѕРІРєР° РєРѕРјРёСЃСЃРёРё, Р·Р°РїРёСЃС‹РІР°С‚СЊ РёС… РЅР°РґРѕ РІ
     TYPE TYP_ZAG IS RECORD(
-                NRN      NUMBER(17), -- RN шапки комиссии
-                Kom_Name VARCHAR2(240), -- Наименовании комиссии
-                DOC_CODE VARCHAR2(240), -- Тип приказа комиссии
-                DOC_NUMB VARCHAR2(240), -- Номер приказа комиссии
-                DOC_DATE DATE -- Дата приказа комиссии
+                NRN      NUMBER(17), -- RN С€Р°РїРєРё РєРѕРјРёСЃСЃРёРё
+                Kom_Name VARCHAR2(240), -- РќР°РёРјРµРЅРѕРІР°РЅРёРё РєРѕРјРёСЃСЃРёРё
+                DOC_CODE VARCHAR2(240), -- РўРёРї РїСЂРёРєР°Р·Р° РєРѕРјРёСЃСЃРёРё
+                DOC_NUMB VARCHAR2(240), -- РќРѕРјРµСЂ РїСЂРёРєР°Р·Р° РєРѕРјРёСЃСЃРёРё
+                DOC_DATE DATE -- Р”Р°С‚Р° РїСЂРёРєР°Р·Р° РєРѕРјРёСЃСЃРёРё
     );
-    V_RES_ZAG TYP_ZAG; --- Запись заголовка*/
+    V_RES_ZAG TYP_ZAG; --- Р—Р°РїРёСЃСЊ Р·Р°РіРѕР»РѕРІРєР°*/
     CUR1 SYS_REFCURSOR;
   BEGIN
     OPEN CUR1 FOR
@@ -1093,14 +1093,14 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
   END;
 
   FUNCTION KOMIS_SOST(PIN_DOC IN NUMBER, PIN_DATE IN DATE) RETURN SYS_REFCURSOR IS
-    /*  Функция возвращает состав постоянно действующей комиссии по RN на Дату, записывать надо в
+    /*  Р¤СѓРЅРєС†РёСЏ РІРѕР·РІСЂР°С‰Р°РµС‚ СЃРѕСЃС‚Р°РІ РїРѕСЃС‚РѕСЏРЅРЅРѕ РґРµР№СЃС‚РІСѓСЋС‰РµР№ РєРѕРјРёСЃСЃРёРё РїРѕ RN РЅР° Р”Р°С‚Сѓ, Р·Р°РїРёСЃС‹РІР°С‚СЊ РЅР°РґРѕ РІ
     TYPE TYP_SOST IS RECORD(
-       NN      NUMBER(2), --- Номер члена комиссии по порядку
-       Emppost VARCHAR2(240), --- Должность члена комиссии
-       FIO     VARCHAR2(240), --- ФИО члена комиссии
-       PREZ    INTEGER -- Признак председателя комиссии
+       NN      NUMBER(2), --- РќРѕРјРµСЂ С‡Р»РµРЅР° РєРѕРјРёСЃСЃРёРё РїРѕ РїРѕСЂСЏРґРєСѓ
+       Emppost VARCHAR2(240), --- Р”РѕР»Р¶РЅРѕСЃС‚СЊ С‡Р»РµРЅР° РєРѕРјРёСЃСЃРёРё
+       FIO     VARCHAR2(240), --- Р¤РРћ С‡Р»РµРЅР° РєРѕРјРёСЃСЃРёРё
+       PREZ    INTEGER -- РџСЂРёР·РЅР°Рє РїСЂРµРґСЃРµРґР°С‚РµР»СЏ РєРѕРјРёСЃСЃРёРё
        );
-       V_RES_SOST TYP_SOST; --- Запись состава*/
+       V_RES_SOST TYP_SOST; --- Р—Р°РїРёСЃСЊ СЃРѕСЃС‚Р°РІР°*/
 
     CUR1 SYS_REFCURSOR;
   BEGIN
@@ -1158,13 +1158,13 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
   FUNCTION MONTH_NAME(PIN_N IN NUMBER, PIN_REJ IN NUMBER) RETURN VARCHAR2 IS
 
   BEGIN
-    RETURN(CASE PIN_N WHEN 1 THEN CASE PIN_REJ WHEN 1 THEN 'январь' ELSE 'января' END WHEN 2 THEN CASE PIN_REJ WHEN 1 THEN 'февраль' ELSE
-           'февраля' END WHEN 3 THEN CASE PIN_REJ WHEN 1 THEN 'март' ELSE 'марта' END WHEN 4 THEN CASE PIN_REJ WHEN 1 THEN 'апрель' ELSE
-           'апреля' END WHEN 5 THEN CASE PIN_REJ WHEN 1 THEN 'май' ELSE 'мая' END WHEN 6 THEN CASE PIN_REJ WHEN 1 THEN 'июнь' ELSE
-           'июня' END WHEN 7 THEN CASE PIN_REJ WHEN 1 THEN 'июль' ELSE 'июля' END WHEN 8 THEN CASE PIN_REJ WHEN 1 THEN 'август' ELSE
-           'августа' END WHEN 9 THEN CASE PIN_REJ WHEN 1 THEN 'сентябрь' ELSE 'сентября' END WHEN 10 THEN CASE PIN_REJ WHEN 1 THEN
-           'октябрь' ELSE 'октября' END WHEN 11 THEN CASE PIN_REJ WHEN 1 THEN 'ноябрь' ELSE 'ноября' END WHEN 12 THEN CASE PIN_REJ WHEN 1 THEN
-           'декабрь' ELSE 'декабря' END ELSE '' END);
+    RETURN(CASE PIN_N WHEN 1 THEN CASE PIN_REJ WHEN 1 THEN 'СЏРЅРІР°СЂСЊ' ELSE 'СЏРЅРІР°СЂСЏ' END WHEN 2 THEN CASE PIN_REJ WHEN 1 THEN 'С„РµРІСЂР°Р»СЊ' ELSE
+           'С„РµРІСЂР°Р»СЏ' END WHEN 3 THEN CASE PIN_REJ WHEN 1 THEN 'РјР°СЂС‚' ELSE 'РјР°СЂС‚Р°' END WHEN 4 THEN CASE PIN_REJ WHEN 1 THEN 'Р°РїСЂРµР»СЊ' ELSE
+           'Р°РїСЂРµР»СЏ' END WHEN 5 THEN CASE PIN_REJ WHEN 1 THEN 'РјР°Р№' ELSE 'РјР°СЏ' END WHEN 6 THEN CASE PIN_REJ WHEN 1 THEN 'РёСЋРЅСЊ' ELSE
+           'РёСЋРЅСЏ' END WHEN 7 THEN CASE PIN_REJ WHEN 1 THEN 'РёСЋР»СЊ' ELSE 'РёСЋР»СЏ' END WHEN 8 THEN CASE PIN_REJ WHEN 1 THEN 'Р°РІРіСѓСЃС‚' ELSE
+           'Р°РІРіСѓСЃС‚Р°' END WHEN 9 THEN CASE PIN_REJ WHEN 1 THEN 'СЃРµРЅС‚СЏР±СЂСЊ' ELSE 'СЃРµРЅС‚СЏР±СЂСЏ' END WHEN 10 THEN CASE PIN_REJ WHEN 1 THEN
+           'РѕРєС‚СЏР±СЂСЊ' ELSE 'РѕРєС‚СЏР±СЂСЏ' END WHEN 11 THEN CASE PIN_REJ WHEN 1 THEN 'РЅРѕСЏР±СЂСЊ' ELSE 'РЅРѕСЏР±СЂСЏ' END WHEN 12 THEN CASE PIN_REJ WHEN 1 THEN
+           'РґРµРєР°Р±СЂСЊ' ELSE 'РґРµРєР°Р±СЂСЏ' END ELSE '' END);
   END;
 
   FUNCTION MONTH_NAME(PIN_D IN DATE, PIN_REJ IN NUMBER) RETURN VARCHAR2 IS
@@ -1190,7 +1190,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
   end;
 
   FUNCTION OST_GY(PIN_COM IN NUMBER, PIN_GY IN NUMBER, PIN_DATE IN DATE, PIN_REJ IN VARCHAR2) RETURN NUMBER IS
-    --- Остаток на дату по строке остатков ТМЦ по партиям
+    --- РћСЃС‚Р°С‚РѕРє РЅР° РґР°С‚Сѓ РїРѕ СЃС‚СЂРѕРєРµ РѕСЃС‚Р°С‚РєРѕРІ РўРњР¦ РїРѕ РїР°СЂС‚РёСЏРј
     V_Q PARUS.GOODSSUPPLY.RESTFACT%TYPE;
     V_S PARUS.GOODSSUPPLY.SUMMFACT%TYPE;
   BEGIN
@@ -1218,7 +1218,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
 
   FUNCTION OST_NOMMODIF(PIN_COM IN NUMBER, PIN_NMRN IN NUMBER, PIN_DATE IN DATE, PIN_STORE IN VARCHAR2, PIN_REJ IN VARCHAR2)
     RETURN NUMBER IS
-    --- Остаток на дату по Модификации номенклатуры , по складу (отобранным),  на начало даты
+    --- РћСЃС‚Р°С‚РѕРє РЅР° РґР°С‚Сѓ РїРѕ РњРѕРґРёС„РёРєР°С†РёРё РЅРѕРјРµРЅРєР»Р°С‚СѓСЂС‹ , РїРѕ СЃРєР»Р°РґСѓ (РѕС‚РѕР±СЂР°РЅРЅС‹Рј),  РЅР° РЅР°С‡Р°Р»Рѕ РґР°С‚С‹
     V_Q PARUS.GOODSSUPPLY.RESTFACT%TYPE;
     V_S PARUS.GOODSSUPPLY.SUMMFACT%TYPE;
 
@@ -1267,7 +1267,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
 
   FUNCTION OST_NOMMODIF(PIN_COM IN NUMBER, PIN_NMRN IN NUMBER, PIN_DATE IN DATE, PIN_STORE IN Number, PIN_REJ IN VARCHAR2)
     RETURN NUMBER IS
-    --- Остаток на дату по Модификации номенклатуры , по складу (ОДНОМУ ЗАДАННОМУ),  на начало даты
+    --- РћСЃС‚Р°С‚РѕРє РЅР° РґР°С‚Сѓ РїРѕ РњРѕРґРёС„РёРєР°С†РёРё РЅРѕРјРµРЅРєР»Р°С‚СѓСЂС‹ , РїРѕ СЃРєР»Р°РґСѓ (РћР”РќРћРњРЈ Р—РђР”РђРќРќРћРњРЈ),  РЅР° РЅР°С‡Р°Р»Рѕ РґР°С‚С‹
     V_Q PARUS.GOODSSUPPLY.RESTFACT%TYPE;
     V_S PARUS.GOODSSUPPLY.SUMMFACT%TYPE;
 
@@ -1309,23 +1309,23 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
   BEGIN
     CASE
       WHEN PIN_KOSGU IN ('340.2', '341.1') THEN
-        --- Лекарственные средства
+        --- Р›РµРєР°СЂСЃС‚РІРµРЅРЅС‹Рµ СЃСЂРµРґСЃС‚РІР°
         V_RES := 1;
       WHEN PIN_KOSGU IN ('340.3', '341.2') THEN
-        --- перевязочные медикаменты
+        --- РїРµСЂРµРІСЏР·РѕС‡РЅС‹Рµ РјРµРґРёРєР°РјРµРЅС‚С‹
         V_RES := 2;
       WHEN PIN_KOSGU IN ('340.8', '341.3') THEN
-        --- Вспомогательные материалы
+        --- Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Рµ РјР°С‚РµСЂРёР°Р»С‹
         V_RES := 3;
       ELSE
-        V_RES := 0; --- прочее
+        V_RES := 0; --- РїСЂРѕС‡РµРµ
     END CASE;
     RETURN V_RES;
 
   END;
 
   FUNCTION NDS_RATE(PIN_TAX_GR IN VARCHAR2, PIN_COMPANY IN NUMBER, PIN_DATE IN DATE DEFAULT SYSDATE) RETURN NUMBER IS
-    --- Вычисление ставки налоговой группы на заданную дату в организации  по коду группы
+    --- Р’С‹С‡РёСЃР»РµРЅРёРµ СЃС‚Р°РІРєРё РЅР°Р»РѕРіРѕРІРѕР№ РіСЂСѓРїРїС‹ РЅР° Р·Р°РґР°РЅРЅСѓСЋ РґР°С‚Сѓ РІ РѕСЂРіР°РЅРёР·Р°С†РёРё  РїРѕ РєРѕРґСѓ РіСЂСѓРїРїС‹
     V_RES PARUS.DICTAXIS.P_VALUE%TYPE;
   BEGIN
     SELECT NVL(MAX(DX.P_VALUE), 0)
@@ -1346,7 +1346,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
   END;
 
   FUNCTION NDS_RATE(PIN_TAX_GR IN NUMBER, PIN_COMPANY IN NUMBER, PIN_DATE IN DATE DEFAULT SYSDATE) RETURN NUMBER IS
-    --- Вычисление ставки налоговой группы на заданную дату в организации  по её RN
+    --- Р’С‹С‡РёСЃР»РµРЅРёРµ СЃС‚Р°РІРєРё РЅР°Р»РѕРіРѕРІРѕР№ РіСЂСѓРїРїС‹ РЅР° Р·Р°РґР°РЅРЅСѓСЋ РґР°С‚Сѓ РІ РѕСЂРіР°РЅРёР·Р°С†РёРё  РїРѕ РµС‘ RN
     V_RES PARUS.DICTAXIS.P_VALUE%TYPE;
   BEGIN
     SELECT NVL(MAX(DX.P_VALUE), 0)
@@ -1367,17 +1367,17 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
   END;
 
   FUNCTION STOREOPERJOURN_CONTRAGENT(PIN_DOC IN NUMBER, PIN_UNI IN VARCHAR2, PIN_OUT IN VARCHAR2) RETURN VARCHAR2 IS
-    /* функция возращвет от кого - кому по записи строки Журнала складских операций */
-    --- В зависимости от pin_OUT возвращает:
-    V_CODE_FROM VARCHAR2(80); --- код  От кого
-    V_NAME_FROM VARCHAR2(255); --- наименование от кого
-    V_CODE_TO   VARCHAR2(80); --- код  Куда
-    V_NAME_TO   VARCHAR2(255); --- Наименование Куда
+    /* С„СѓРЅРєС†РёСЏ РІРѕР·СЂР°С‰РІРµС‚ РѕС‚ РєРѕРіРѕ - РєРѕРјСѓ РїРѕ Р·Р°РїРёСЃРё СЃС‚СЂРѕРєРё Р–СѓСЂРЅР°Р»Р° СЃРєР»Р°РґСЃРєРёС… РѕРїРµСЂР°С†РёР№ */
+    --- Р’ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ pin_OUT РІРѕР·РІСЂР°С‰Р°РµС‚:
+    V_CODE_FROM VARCHAR2(80); --- РєРѕРґ  РћС‚ РєРѕРіРѕ
+    V_NAME_FROM VARCHAR2(255); --- РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РѕС‚ РєРѕРіРѕ
+    V_CODE_TO   VARCHAR2(80); --- РєРѕРґ  РљСѓРґР°
+    V_NAME_TO   VARCHAR2(255); --- РќР°РёРјРµРЅРѕРІР°РЅРёРµ РљСѓРґР°
 
   BEGIN
     CASE PIN_UNI
       WHEN 'IncomingOrders' THEN
-        --- Приходные ордера
+        --- РџСЂРёС…РѕРґРЅС‹Рµ РѕСЂРґРµСЂР°
         BEGIN
           SELECT A.AGNABBR, A.AGNNAME, SKL.AZS_NUMBER, SKL.AZS_NAME
             INTO V_CODE_FROM, V_NAME_FROM, V_CODE_TO, V_NAME_TO
@@ -1396,7 +1396,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
             NULL;
         END;
       WHEN 'GoodsTransInvoicesToDepts' THEN
-        ---- Расходные накладные на отпуск в подразделения
+        ---- Р Р°СЃС…РѕРґРЅС‹Рµ РЅР°РєР»Р°РґРЅС‹Рµ РЅР° РѕС‚РїСѓСЃРє РІ РїРѕРґСЂР°Р·РґРµР»РµРЅРёСЏ
         BEGIN
           SELECT NVL(DEP.CODE, SKL.AZS_NUMBER),
                  NVL(DEP.NAME, SKL.AZS_NAME),
@@ -1445,7 +1445,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
             NULL;
         END;
       WHEN 'ReturnInvoicesToSuppliers' THEN
-        ---- Расходные накладные на возврат поставщикам
+        ---- Р Р°СЃС…РѕРґРЅС‹Рµ РЅР°РєР»Р°РґРЅС‹Рµ РЅР° РІРѕР·РІСЂР°С‚ РїРѕСЃС‚Р°РІС‰РёРєР°Рј
         begin
           SELECT NVL(DEP.CODE, SKL.AZS_NUMBER), NVL(DEP.NAME, SKL.AZS_NAME), A.AGNABBR, A.AGNNAME
             INTO V_CODE_FROM, V_NAME_FROM, V_CODE_TO, V_NAME_TO
@@ -1466,7 +1466,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
         END;
 
       when 'SheepDirectToConsumers' then
-        --- распоряжения на потребителей
+        --- СЂР°СЃРїРѕСЂСЏР¶РµРЅРёСЏ РЅР° РїРѕС‚СЂРµР±РёС‚РµР»РµР№
         SELECT NVL(DEP.CODE, SKL.AZS_NUMBER), NVL(DEP.NAME, SKL.AZS_NAME), A.AGNABBR, A.AGNNAME
           INTO V_CODE_FROM, V_NAME_FROM, V_CODE_TO, V_NAME_TO
           FROM STOREOPERJOURN ST, DOCLINKS L, SHEEPDIRSCUST I, AGNLIST A, AZSAZSLISTMT SKL, INS_DEPARTMENT DEP
@@ -1502,22 +1502,22 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
   END;
 
   FUNCTION STOREOPERJOURN_MOL(PIN_DOC IN NUMBER, PIN_UNI IN VARCHAR2, PIN_OUT IN VARCHAR2) RETURN VARCHAR2 IS
-    /* функция возращвет МОЛ от  кого - кому по записи строки Журнала складских операций */
-    -- В зависимости от pin_OUT возвращает:
+    /* С„СѓРЅРєС†РёСЏ РІРѕР·СЂР°С‰РІРµС‚ РњРћР› РѕС‚  РєРѕРіРѕ - РєРѕРјСѓ РїРѕ Р·Р°РїРёСЃРё СЃС‚СЂРѕРєРё Р–СѓСЂРЅР°Р»Р° СЃРєР»Р°РґСЃРєРёС… РѕРїРµСЂР°С†РёР№ */
+    -- Р’ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ pin_OUT РІРѕР·РІСЂР°С‰Р°РµС‚:
 
     -- 'CODE_FROM' , 'NAME_FROM' , 'CODE_TO' ,  'NAME_TO'
 
-    V_CODE_FROM VARCHAR2(80); --- код  От кого
-    V_NAME_FROM VARCHAR2(255); --- наименование от кого
-    V_CODE_TO   VARCHAR2(80); --- код  Куда
-    V_NAME_TO   VARCHAR2(255); --- Наименование Куда
+    V_CODE_FROM VARCHAR2(80); --- РєРѕРґ  РћС‚ РєРѕРіРѕ
+    V_NAME_FROM VARCHAR2(255); --- РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РѕС‚ РєРѕРіРѕ
+    V_CODE_TO   VARCHAR2(80); --- РєРѕРґ  РљСѓРґР°
+    V_NAME_TO   VARCHAR2(255); --- РќР°РёРјРµРЅРѕРІР°РЅРёРµ РљСѓРґР°
 
   BEGIN
     CASE PIN_UNI
       WHEN 'IncomingOrders' THEN
-        --- Приходные ордера
+        --- РџСЂРёС…РѕРґРЅС‹Рµ РѕСЂРґРµСЂР°
         BEGIN
-          SELECT A.AGNABBR, -- В приходнике МОЛ от кого нет, выводим контрагента
+          SELECT A.AGNABBR, -- Р’ РїСЂРёС…РѕРґРЅРёРєРµ РњРћР› РѕС‚ РєРѕРіРѕ РЅРµС‚, РІС‹РІРѕРґРёРј РєРѕРЅС‚СЂР°РіРµРЅС‚Р°
                  A.AGNNAME,
                  CASE
                    WHEN MOL_IN.AGNFAMILYNAME IS NULL THEN
@@ -1568,7 +1568,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
             NULL;
         END;
       WHEN 'GoodsTransInvoicesToDepts' THEN
-        ---- Расходные накладные на отпуск в подразделения
+        ---- Р Р°СЃС…РѕРґРЅС‹Рµ РЅР°РєР»Р°РґРЅС‹Рµ РЅР° РѕС‚РїСѓСЃРє РІ РїРѕРґСЂР°Р·РґРµР»РµРЅРёСЏ
         BEGIN
           SELECT CASE
                    WHEN MOL.AGNFAMILYNAME IS NULL THEN
@@ -1650,7 +1650,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
             NULL;
         END;
       WHEN 'GoodsTransInvoicesToConsumers' THEN
-        ---- Расходные накладные на отпуск потребителям
+        ---- Р Р°СЃС…РѕРґРЅС‹Рµ РЅР°РєР»Р°РґРЅС‹Рµ РЅР° РѕС‚РїСѓСЃРє РїРѕС‚СЂРµР±РёС‚РµР»СЏРј
         BEGIN
           SELECT CASE
                    WHEN MOL.AGNFAMILYNAME IS NULL THEN
@@ -1702,7 +1702,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
             NULL;
         END;
       when 'ReturnInvoicesToSuppliers' then
-        --- расходные накладные на возврат поставщикам
+        --- СЂР°СЃС…РѕРґРЅС‹Рµ РЅР°РєР»Р°РґРЅС‹Рµ РЅР° РІРѕР·РІСЂР°С‚ РїРѕСЃС‚Р°РІС‰РёРєР°Рј
         BEGIN
           SELECT CASE
                    WHEN MOL.AGNFAMILYNAME IS NULL THEN
@@ -1775,29 +1775,29 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
 
   FUNCTION ACCOUNTING_ENTRY(PIN_DOC IN NUMBER, PIN_IN_NOM IN NUMBER, PIN_UNI_NOM in Varchar2) RETURN SYS_REFCURSOR IS
 
-    --PIN_DOC  -- RN ПРОВОДКИ Финансово-хоз операции
-    --PIN_IN_NOM -- 1 -- только с заполненной номенклатурой, 0 -- все
-    --PIN_UNI_NOM  -- Если задан код раздела, то взять неоменклатуру из документа из которого растет ФХО
-    ---  раздел документа указан в параметре
+    --PIN_DOC  -- RN РџР РћР’РћР”РљР Р¤РёРЅР°РЅСЃРѕРІРѕ-С…РѕР· РѕРїРµСЂР°С†РёРё
+    --PIN_IN_NOM -- 1 -- С‚РѕР»СЊРєРѕ СЃ Р·Р°РїРѕР»РЅРµРЅРЅРѕР№ РЅРѕРјРµРЅРєР»Р°С‚СѓСЂРѕР№, 0 -- РІСЃРµ
+    --PIN_UNI_NOM  -- Р•СЃР»Рё Р·Р°РґР°РЅ РєРѕРґ СЂР°Р·РґРµР»Р°, С‚Рѕ РІР·СЏС‚СЊ РЅРµРѕРјРµРЅРєР»Р°С‚СѓСЂСѓ РёР· РґРѕРєСѓРјРµРЅС‚Р° РёР· РєРѕС‚РѕСЂРѕРіРѕ СЂР°СЃС‚РµС‚ Р¤РҐРћ
+    ---  СЂР°Р·РґРµР» РґРѕРєСѓРјРµРЅС‚Р° СѓРєР°Р·Р°РЅ РІ РїР°СЂР°РјРµС‚СЂРµ
 
-    /*  Функция Дб, Кр и пять уровней аналитики
+    /*  Р¤СѓРЅРєС†РёСЏ Р”Р±, РљСЂ Рё РїСЏС‚СЊ СѓСЂРѕРІРЅРµР№ Р°РЅР°Р»РёС‚РёРєРё
     TYPE TYP_FHO IS RECORD(
-       DB   VARCHAR2(40), -- Счет Дб
-       DBA1 VARCHAR2(40), -- Аналит. Дб. первого уровня
-       DBA2 VARCHAR2(40), -- Аналит. Дб. вторго уровня
-       DBA3 VARCHAR2(40), -- Аналит. Дб. третьего уровня
-       DBA4 VARCHAR2(40), -- Аналит. Дб. четвертого уровня
-       DBA5 VARCHAR2(40), -- Аналит. Дб. пятого уровня
-       KR   VARCHAR2(40), -- Счет Кр
-       KRA1 VARCHAR2(40), -- Аналит. Кр. первого уровня
-       KRA2 VARCHAR2(40), -- Аналит. Кр. вторго уровня
-       KRA3 VARCHAR2(40), -- Аналит. Кр. третьего уровня
-       KRA4 VARCHAR2(40), -- Аналит. Кр. четвертого уровня
-       KRA5 VARCHAR2(40), --  Аналит. Кр. пятого уровня
-       PBE_DB VARCHAR2(20), --- ПБЕ Дб
-       PBE_KR VARCHAR2(20),  --- ПБЕ Кр
-       NOMEN_RN number(17) -- RN Номенклатуры
-       FHO_SP_RN number(17) -- RN  проводки
+       DB   VARCHAR2(40), -- РЎС‡РµС‚ Р”Р±
+       DBA1 VARCHAR2(40), -- РђРЅР°Р»РёС‚. Р”Р±. РїРµСЂРІРѕРіРѕ СѓСЂРѕРІРЅСЏ
+       DBA2 VARCHAR2(40), -- РђРЅР°Р»РёС‚. Р”Р±. РІС‚РѕСЂРіРѕ СѓСЂРѕРІРЅСЏ
+       DBA3 VARCHAR2(40), -- РђРЅР°Р»РёС‚. Р”Р±. С‚СЂРµС‚СЊРµРіРѕ СѓСЂРѕРІРЅСЏ
+       DBA4 VARCHAR2(40), -- РђРЅР°Р»РёС‚. Р”Р±. С‡РµС‚РІРµСЂС‚РѕРіРѕ СѓСЂРѕРІРЅСЏ
+       DBA5 VARCHAR2(40), -- РђРЅР°Р»РёС‚. Р”Р±. РїСЏС‚РѕРіРѕ СѓСЂРѕРІРЅСЏ
+       KR   VARCHAR2(40), -- РЎС‡РµС‚ РљСЂ
+       KRA1 VARCHAR2(40), -- РђРЅР°Р»РёС‚. РљСЂ. РїРµСЂРІРѕРіРѕ СѓСЂРѕРІРЅСЏ
+       KRA2 VARCHAR2(40), -- РђРЅР°Р»РёС‚. РљСЂ. РІС‚РѕСЂРіРѕ СѓСЂРѕРІРЅСЏ
+       KRA3 VARCHAR2(40), -- РђРЅР°Р»РёС‚. РљСЂ. С‚СЂРµС‚СЊРµРіРѕ СѓСЂРѕРІРЅСЏ
+       KRA4 VARCHAR2(40), -- РђРЅР°Р»РёС‚. РљСЂ. С‡РµС‚РІРµСЂС‚РѕРіРѕ СѓСЂРѕРІРЅСЏ
+       KRA5 VARCHAR2(40), --  РђРЅР°Р»РёС‚. РљСЂ. РїСЏС‚РѕРіРѕ СѓСЂРѕРІРЅСЏ
+       PBE_DB VARCHAR2(20), --- РџР‘Р• Р”Р±
+       PBE_KR VARCHAR2(20),  --- РџР‘Р• РљСЂ
+       NOMEN_RN number(17) -- RN РќРѕРјРµРЅРєР»Р°С‚СѓСЂС‹
+       FHO_SP_RN number(17) -- RN  РїСЂРѕРІРѕРґРєРё
        );
        */
 
@@ -1825,7 +1825,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
                           case
                             when PIN_UNI_NOM is null then
                              null
-                            when PIN_UNI_NOM = 'InternalDocuments' then --- Если номенклатуры нет в проводке найдем ее в спецификации !!! внутреннего документа
+                            when PIN_UNI_NOM = 'InternalDocuments' then --- Р•СЃР»Рё РЅРѕРјРµРЅРєР»Р°С‚СѓСЂС‹ РЅРµС‚ РІ РїСЂРѕРІРѕРґРєРµ РЅР°Р№РґРµРј РµРµ РІ СЃРїРµС†РёС„РёРєР°С†РёРё !!! РІРЅСѓС‚СЂРµРЅРЅРµРіРѕ РґРѕРєСѓРјРµРЅС‚Р°
                              (SELECT MAX(SP1.NOMENCLATURE)
                                 FROM DOCLINKS L, INTDOCS_SP SP1
                                WHERE L.OUT_DOCUMENT = PIN_DOC
@@ -1834,7 +1834,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
                                  AND L.IN_COMPANY = L.OUT_COMPANY
                                  AND L.OUT_UNITCODE = 'EconomicOperationsSpecs'
                                  AND SP1.RN = L.IN_DOCUMENT)
-                            else --- Поищем в товарном отчете
+                            else --- РџРѕРёС‰РµРј РІ С‚РѕРІР°СЂРЅРѕРј РѕС‚С‡РµС‚Рµ
                              (SELECT MAX(SP1.NOMENCLATURE)
                                 FROM DOCLINKS L, SALESREPORTDETAIL SP1
                                WHERE L.OUT_DOCUMENT = PIN_DOC
@@ -1925,7 +1925,7 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
        AND PIN_DATE BETWEEN PM.BEGENG AND NVL(PM.ENDENG, PIN_DATE)
        AND PM.PSDEPRN = DOL.RN(+)
        AND PM.DEPTRN = OTD.RN
-       AND ROWNUM = 1; --- Два значения нам не надо!
+       AND ROWNUM = 1; --- Р”РІР° Р·РЅР°С‡РµРЅРёСЏ РЅР°Рј РЅРµ РЅР°РґРѕ!
 
   EXCEPTION
     WHEN NO_DATA_FOUND THEN
@@ -1953,14 +1953,14 @@ CREATE OR REPLACE PACKAGE BODY PARUS.UDO_PKG_REP IS
 
   FUNCTION FRAC_PART_NUMBER(PIN_NUMBER IN NUMBER, PIN_TR_1 IN NUMBER, PIN_TR_2 IN NUMBER) RETURN VARCHAR2 IS
 
-    -- Выводит не менее PIN_TR_1 после запятой и не более PIN_TR_2
-    -- Недостающие позиции дополняет нулями '0'
-    -- PIN_NUMBER математически округляется до PIN_TR_2 знаков после запятой
+    -- Р’С‹РІРѕРґРёС‚ РЅРµ РјРµРЅРµРµ PIN_TR_1 РїРѕСЃР»Рµ Р·Р°РїСЏС‚РѕР№ Рё РЅРµ Р±РѕР»РµРµ PIN_TR_2
+    -- РќРµРґРѕСЃС‚Р°СЋС‰РёРµ РїРѕР·РёС†РёРё РґРѕРїРѕР»РЅСЏРµС‚ РЅСѓР»СЏРјРё '0'
+    -- PIN_NUMBER РјР°С‚РµРјР°С‚РёС‡РµСЃРєРё РѕРєСЂСѓРіР»СЏРµС‚СЃСЏ РґРѕ PIN_TR_2 Р·РЅР°РєРѕРІ РїРѕСЃР»Рµ Р·Р°РїСЏС‚РѕР№
     -- PIN_TR_1 >= 0
 
-    V_NUMBER NUMBER(17, 7) := ROUND(PIN_NUMBER, PIN_TR_2); --- Округлим
-    V_FRAC   VARCHAR2(40) := NVL(RPAD(SUBSTR(TO_CHAR(MOD(V_NUMBER, 1)), 2), PIN_TR_2, '0'), RPAD('0', PIN_TR_1 + 1, '0')); --- Дополнили нулями до PIN_TR_1 + 1  знаков
-    V_RES    VARCHAR2(40) := TO_CHAR(TRUNC(V_NUMBER)) || '.'; --- Целая часть
+    V_NUMBER NUMBER(17, 7) := ROUND(PIN_NUMBER, PIN_TR_2); --- РћРєСЂСѓРіР»РёРј
+    V_FRAC   VARCHAR2(40) := NVL(RPAD(SUBSTR(TO_CHAR(MOD(V_NUMBER, 1)), 2), PIN_TR_2, '0'), RPAD('0', PIN_TR_1 + 1, '0')); --- Р”РѕРїРѕР»РЅРёР»Рё РЅСѓР»СЏРјРё РґРѕ PIN_TR_1 + 1  Р·РЅР°РєРѕРІ
+    V_RES    VARCHAR2(40) := TO_CHAR(TRUNC(V_NUMBER)) || '.'; --- Р¦РµР»Р°СЏ С‡Р°СЃС‚СЊ
   BEGIN
     RETURN CASE SUBSTR(V_FRAC, -1) WHEN '0' THEN V_RES || UDO_PKG_REP.DEL_LAST_CHAR(V_FRAC, '0', LENGTH(V_FRAC) - PIN_TR_1) ELSE V_RES || SUBSTR(V_FRAC,
                                                                                                                                                  1,
