@@ -1,5 +1,5 @@
 # PARUSeaver.io/product/dbeaver
-<img src="https://github.com/Ogorodetskiy/PARUS/tree/main/IMG/Parus8.png" width="400"/>
+<img alt="Parus8.png" src="https://github.com/Ogorodetskiy/PARUS/blob/main/IMG/Parus8.png?raw=true" data-hpc="true" >
 EXCEL reports for Parus 8 on Oracle and other useful files <br>
 
 
