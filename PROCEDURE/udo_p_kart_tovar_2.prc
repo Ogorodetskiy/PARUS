@@ -4,14 +4,14 @@ CREATE OR REPLACE PROCEDURE PARUS.udo_p_kart_tovar_2(pin_idn IN NUMBER,
                                                      pin_d1  IN DATE,
                                                      pin_d2  IN DATE,
                                                      pin_oei IN NUMBER,
-                                                     pin_skip_pricea IN NUMBER,  --- РЎСЂС‹С‚СЊ СЃС‚РѕР»Р±РµС† С†РµРЅС‹ РѕСЃС‚Р°С‚РєР° РЅР° РґР°С‚Сѓ
+                                                     pin_skip_pricea IN NUMBER,  --- Срыть столбец цены остатка на дату
                                                      pin_store IN VARCHAR2
                                                      ) AS
-  /* РѕРїРёСЃР°РЅРёРµ РѕС‚С‡РµС‚Р° */
-  -- СЂР°Р±РѕС‡РёР№ Р»РёСЃС‚
-  sh CONSTANT pkg_std.tstring := 'РљРђР РўРћР§РљРђ РўРњР¦';
+  /* описание отчета */
+  -- рабочий лист
+  sh CONSTANT pkg_std.tstring := 'КАРТОЧКА ТМЦ';
   scur_sheet_name pkg_std.tstring;
-  --С€Р°РїРєР° РѕС‚С‡РµС‚Р°
+  --шапка отчета
   cell_org_name   CONSTANT pkg_std.tstring := 'ORG_NAME';
   cell_zag1       CONSTANT pkg_std.tstring := 'ZAG1';
   cell_modif_name CONSTANT pkg_std.tstring := 'MODIF_NAME';
@@ -25,7 +25,7 @@ CREATE OR REPLACE PROCEDURE PARUS.udo_p_kart_tovar_2(pin_idn IN NUMBER,
   cell_ost_3 CONSTANT pkg_std.tstring := 'OST_3';
   lat_name            CONSTANT pkg_std.tstring := 'LAT_NAME';
   cell_modif_name_lat CONSTANT pkg_std.tstring := 'MODIF_NAME_LAT';
-  --- РЎС‚СЂРѕРєР° С‚Р°Р±Р»РёС†С‹ РѕСЃС‚Р°С‚РєРё РЅР° РљРћРќР•Р¦
+  --- Строка таблицы остатки на КОНЕЦ
   line1        CONSTANT pkg_std.tstring := 'LINE1';
   cell_npp_1   CONSTANT pkg_std.tstring := 'NPP_1';
   cell_ser_1   CONSTANT pkg_std.tstring := 'SER_1';
@@ -35,7 +35,7 @@ CREATE OR REPLACE PROCEDURE PARUS.udo_p_kart_tovar_2(pin_idn IN NUMBER,
   cell_quant_1 CONSTANT pkg_std.tstring := 'QUANT_1';
   cell_summa_1 CONSTANT pkg_std.tstring := 'SUMMA_1';
   cell_post_1  CONSTANT pkg_std.tstring := 'POST_1';
-  --- CС‚СЂРѕРєР° С‚Р°Р±Р»РёС†С‹ РћР‘РћР РћРўР«
+  --- Cтрока таблицы ОБОРОТЫ
   line_det       CONSTANT pkg_std.tstring := 'LINE_DET';
   cell_npp_2     CONSTANT pkg_std.tstring := 'NPP_2';
   cell_oper_date CONSTANT pkg_std.tstring := 'OPER_DATE';
@@ -51,7 +51,7 @@ CREATE OR REPLACE PROCEDURE PARUS.udo_p_kart_tovar_2(pin_idn IN NUMBER,
   cell_summa2    CONSTANT pkg_std.tstring := 'SUMMA2';
   cell_s_2       CONSTANT pkg_std.tstring := 'S_2';
   cell_q_2       CONSTANT pkg_std.tstring := 'Q_2';
-  --- РЎС‚СЂРѕРєР° С‚Р°Р±Р»РёС†С‹ РѕСЃС‚Р°С‚РєРё РЅР° РќРђР§РђР›Рћ
+  --- Строка таблицы остатки на НАЧАЛО
   line3        CONSTANT pkg_std.tstring := 'LINE3';
   cell_npp_3   CONSTANT pkg_std.tstring := 'NPP_3';
   cell_ser_3   CONSTANT pkg_std.tstring := 'SER_3';
@@ -78,7 +78,7 @@ CREATE OR REPLACE PROCEDURE PARUS.udo_p_kart_tovar_2(pin_idn IN NUMBER,
   v_skl_all VARCHAR2(2000);
   v_fl INTEGER:=0;
  
-  ---V_Q_UPAC number(17,2); --- РљРѕР»РёС‡РµСЃС‚РІРѕ РІ СѓРїР°РєРѕРІРєРµ
+  ---V_Q_UPAC number(17,2); --- Количество в упаковке
 
  PROCEDURE kont(pin_st_rn    IN NUMBER,
                  pin_uni      IN VARCHAR2,
@@ -87,7 +87,7 @@ CREATE OR REPLACE PROCEDURE PARUS.udo_p_kart_tovar_2(pin_idn IN NUMBER,
                  otkogo_name  OUT VARCHAR2,
                  komu_code    OUT VARCHAR2,
                  komu_name    OUT VARCHAR2) IS
-  BEGIN  --- РќР°Р№РґРµРј РєРѕРЅС‚С‚СЂР°РіРµРЅС‚Р° Р·Р°РїРёСЃРё Р–РЎРћ
+  BEGIN  --- Найдем конттрагента записи ЖСО
   
     CASE pin_uni
       WHEN 'IncomingOrders' THEN
@@ -213,12 +213,12 @@ CREATE OR REPLACE PROCEDURE PARUS.udo_p_kart_tovar_2(pin_idn IN NUMBER,
   END;
 
 BEGIN
-  /* РїСЂРѕР»РѕРі */
+  /* пролог */
   prsg_excel.prepare;
-  /* СѓСЃС‚Р°РЅРѕРІРєР° С‚РµРєСѓС‰РµРіРѕ СЂР°Р±РѕС‡РµРіРѕ Р»РёСЃС‚Р° */
+  /* установка текущего рабочего листа */
   prsg_excel.sheet_select(sh);
-  /* РѕРїРёСЃР°РЅРёРµ */
-  -- Р—Р°РіРѕР»РѕРІРѕРє
+  /* описание */
+  -- Заголовок
   prsg_excel.cell_describe(cell_org_name); --
   prsg_excel.cell_describe(cell_zag1);
   prsg_excel.cell_describe(cell_modif_name); --
@@ -230,12 +230,12 @@ BEGIN
   prsg_excel.cell_describe(cell_ost_1);
   prsg_excel.cell_describe(cell_dvi);
   prsg_excel.cell_describe(cell_ost_3);
-  ---- РЎС‚РѕР»Р±С†С‹
+  ---- Столбцы
   
   prsg_excel.column_describe(col_p2);
   IF pin_skip_pricea=1 THEN prsg_excel.column_delete(col_p2); END IF;
   
-  --- РЎС‚СЂРѕРєРё С‚Р°Р±Р»РёС†С‹
+  --- Строки таблицы
   prsg_excel.line_describe(lat_name);
   prsg_excel.cell_describe(cell_modif_name_lat);
   prsg_excel.line_describe(line1);
@@ -275,17 +275,17 @@ BEGIN
                               parus.udo_pkg_rep.company_agnlist_name(pin_com => pin_com,
                                                                      pin_rej => 1));
   prsg_excel.cell_value_write(cell_ost_1,
-                              'РћСЃС‚Р°С‚РѕРє РЅР° ' || to_char(pin_d2, 'DD.MM.YYYY'));
+                              'Остаток на ' || to_char(pin_d2, 'DD.MM.YYYY'));
   prsg_excel.cell_value_write(cell_dvi,
-                              'Р”РІРёР¶РµРЅРёРµ Р·Р° РїРµСЂРёРѕРґ СЃ  ' || to_char(pin_d1, 'DD.MM.YYYY') ||
-                              ' РїРѕ ' || to_char(pin_d2, 'DD.MM.YYYY'));
+                              'Движение за период с  ' || to_char(pin_d1, 'DD.MM.YYYY') ||
+                              ' по ' || to_char(pin_d2, 'DD.MM.YYYY'));
   prsg_excel.cell_value_write(cell_ost_3,
-                              'РћСЃС‚Р°С‚РѕРє РЅР° ' || to_char(pin_d1, 'DD.MM.YYYY'));
+                              'Остаток на ' || to_char(pin_d1, 'DD.MM.YYYY'));
                               
-  --- РќР°Р№РґРµРј                               
+  --- Найдем                               
             
                               
-  CASE pin_uni --- РћС‚С‡РµС‚ РїРѕ Р·Р°РїСѓСЃС‚РёР»Рё РёР· РѕРєРЅР° "РџР°СЂС‚РёРё С‚РѕРІР°СЂР°"
+  CASE pin_uni --- Отчет по запустили из окна "Партии товара"
     WHEN 'GoodsParties' THEN
       FOR cur1 IN (SELECT DISTINCT parus.udo_f_return_goodsparties_pbe(nrn      => gp.rn,
                                                                        ncompany => gp.company) pbe,
@@ -305,7 +305,7 @@ BEGIN
                                    parus.udo_pkg_rep.docs_props_vals_s(pin_com  => pin_com,
                                                                        pin_rej  => 1,
                                                                        pin_doc  => nm.rn,
-                                                                       pin_code => 'Р›Р°С‚РёРЅСЃРєРѕРµ РЅР°РёРј',
+                                                                       pin_code => 'Латинское наим',
                                                                        pin_uni  => 'NomenclatorModification') lat_name,
                                    nvl(pak.quant,1) upac_q                                    
                      FROM parus.selectlist    l,
@@ -329,13 +329,13 @@ BEGIN
                       AND nmp.nomenpack = pak.rn(+)
                     ORDER BY nm.modif_code) LOOP
         i_card := i_card + 1;
-        -- СѓСЃС‚Р°РЅРѕРІРєР° СЂР°Р±РѕС‡РµРіРѕ Р»РёСЃС‚Р°
+        -- установка рабочего листа
         scur_sheet_name := prsg_excel.form_sheet_name(cur1.modif_code || '_' || i_card);
         prsg_excel.sheet_copy(sh, scur_sheet_name);
         prsg_excel.sheet_select(scur_sheet_name);
         prsg_excel.cell_value_write(cell_modif_name,
                                     cur1.modif_name || ' (' || cur1.modif_code || ')');
-        ---- Р›Р°С‚РёРЅСЃРєРѕРµ РЅР°РёРјРµРЅРѕРІР°РЅРёРµ, РµСЃР»Рё РѕРЅРѕ РµСЃС‚СЊ
+        ---- Латинское наименование, если оно есть
         IF cur1.lat_name IS NOT NULL THEN
           prsg_excel.cell_value_write(cell_modif_name_lat, cur1.lat_name);
         ELSE
@@ -351,7 +351,7 @@ BEGIN
         prsg_excel.cell_value_write(cell_ed_izm, cur1.upac);
         END IF;
         
-        ---- Р’С‹РІРѕРґРёРј РѕСЃС‚Р°С‚РєРё РЅР° РЅР°С‡Р°Р»Рѕ Рё РєРѕРЅРµС† РїРµСЂРёРѕРґР°
+        ---- Выводим остатки на начало и конец периода
         FOR cur2 IN (SELECT gp.rn,
                             gp.sernumb,
                             gp.expiry_date,
@@ -379,7 +379,7 @@ BEGIN
                         AND (pin_store IS NULL OR skl.azs_number = pin_store)) s3,
                             (SELECT SUM(parus.udo_pkg_rep.ost_gy(pin_com  => gy.company,
                                                                  pin_gy   => gy.rn,
-                                                                 pin_date => pin_d2+1, -- РќР°С‡Р°Р»Рѕ СЃР»РµРґСѓСЋС‰РµРіРѕ РґРЅСЏ
+                                                                 pin_date => pin_d2+1, -- Начало следующего дня
                                                                  pin_rej  => 'Q'))
                                FROM parus.goodssupply gy,  azsazslistmt skl
                               WHERE gy.prn = gp.rn
@@ -387,7 +387,7 @@ BEGIN
                         AND (pin_store IS NULL OR skl.azs_number = pin_store)) q1,
                             (SELECT SUM(parus.udo_pkg_rep.ost_gy(pin_com  => gy.company,
                                                                  pin_gy   => gy.rn,
-                                                                 pin_date => pin_d2+1,  -- РќР°С‡Р°Р»Рѕ СЃР»РµРґСѓСЋС‰РµРіРѕ РґРЅСЏ
+                                                                 pin_date => pin_d2+1,  -- Начало следующего дня
                                                                  pin_rej  => 'S'))
                                FROM parus.goodssupply gy,  azsazslistmt skl
                               WHERE gy.prn = gp.rn
@@ -422,7 +422,7 @@ BEGIN
                         AND par.company = pin_com
                       ORDER BY 4) LOOP
                        v_fl:=1;
-          --- РћСЃС‚Р°С‚РєРё РЅР° РєРѕРЅРµС† РїРµСЂРёРѕРґР°
+          --- Остатки на конец периода
           idx := prsg_excel.line_append(line1);
           prsg_excel.cell_value_write(cell_npp_1, 0, idx, idx);
           prsg_excel.cell_value_write(cell_ser_1, 0, idx, cur2.sernumb);
@@ -441,24 +441,24 @@ BEGIN
           prsg_excel.cell_value_write(cell_post_1, 0, idx, cur2.sagent);
           v_ost_s_end := v_ost_s_end + cur2.s1;
           v_ost_q_end := v_ost_q_end + cur2.q1;
-          -- РћСЃС‚Р°С‚РєРё РЅР° РЅР°С‡Р°Р»Рѕ РїРµСЂРёРѕРґР°   
+          -- Остатки на начало периода   
           idx := prsg_excel.line_append(line3);
           prsg_excel.cell_value_write(cell_npp_3, 0, idx, idx);
           prsg_excel.cell_value_write(cell_ser_3, 0, idx, cur2.sernumb);
           prsg_excel.cell_value_write(cell_srok_3, 0, idx, cur2.expiry_date);
           prsg_excel.cell_value_write(cell_part_3, 0, idx, cur2.part_code);
           IF pin_oei = 1 THEN
-          prsg_excel.cell_value_write(cell_price_3, 0, idx, cur2.price3); --- РµСЃР»Рё С†РµРЅР° РЅРµ СЂР°РІРЅР° СЂР°СЃС‡РµС‚РЅРѕР№, РїРѕРєСЂР°СЃРёРј РµРµ РІ РєСЂР°СЃРЅС‹Р№ С†РІРµС‚ 
+          prsg_excel.cell_value_write(cell_price_3, 0, idx, cur2.price3); --- если цена не равна расчетной, покрасим ее в красный цвет 
           prsg_excel.cell_value_write(cell_quant_3, 0, idx, cur2.q3);
           ELSE
-          prsg_excel.cell_value_write(cell_price_3, 0, idx, cur2.price3*cur1.upac_q); --- РµСЃР»Рё С†РµРЅР° РЅРµ СЂР°РІРЅР° СЂР°СЃС‡РµС‚РЅРѕР№, РїРѕРєСЂР°СЃРёРј РµРµ РІ РєСЂР°СЃРЅС‹Р№ С†РІРµС‚ 
+          prsg_excel.cell_value_write(cell_price_3, 0, idx, cur2.price3*cur1.upac_q); --- если цена не равна расчетной, покрасим ее в красный цвет 
           prsg_excel.cell_value_write(cell_quant_3, 0, idx, cur2.q3/cur1.upac_q); 
           END IF;
           
           prsg_excel.cell_value_write(cell_summa_3, 0, idx, cur2.s3);
           prsg_excel.cell_value_write(cell_post_3, 0, idx, cur2.sagent);
-        END LOOP; --- РћСЃС‚Р°С‚РѕРє РїРѕ РїР°СЂС‚РёРё
-        -- РѕР±РѕСЂРѕС‚С‹ Р·Р° РїРµСЂРёРѕРґ  
+        END LOOP; --- Остаток по партии
+        -- обороты за период  
         v_ost_s_tek := v_ost_s_end;
         v_ost_q_tek := v_ost_q_end;
         FOR det IN (SELECT st.unitcode,
@@ -466,7 +466,7 @@ BEGIN
                            st.company,
                            st.operdate,
                            dt.doccode || ' ' || TRIM(st.docpref) || '-' || TRIM(st.docnumb) ||
-                           ' РѕС‚ ' || to_char(st.docdate, 'DD.MM.YYYY') doc_t,
+                           ' от ' || to_char(st.docdate, 'DD.MM.YYYY') doc_t,
                            gp.sernumb,
                            par.code part_n,
                            st.oper_type,
@@ -527,7 +527,7 @@ BEGIN
           prsg_excel.cell_value_write(cell_oper_t,
                                       0,
                                       idx,
-                                      CASE det.oper_type WHEN 1 THEN 'РїСЂРёС…РѕРґ' ELSE 'СЂР°СЃС…РѕРґ' END);
+                                      CASE det.oper_type WHEN 1 THEN 'приход' ELSE 'расход' END);
           parus.prsg_excel.cell_attribute_set(cell_oper_t,
                                               0,
                                               idx,
@@ -572,8 +572,8 @@ BEGIN
           
           prsg_excel.cell_value_write(cell_otkuda, 0, idx, out_otkogo_name);
           prsg_excel.cell_value_write(cell_kuda, 0, idx, out_komu_name);
-        END LOOP; --- РЎС‚СЂРѕРєР° РґРІРёР¶РµРЅРёСЏ
-        ---- РќР°Р№РґРµРј РІСЃРµ СЃРєР»Р°РґС‹ РєРѕС‚РѕСЂС‹Рµ РїРѕРїР°РґСѓС‚ РІ РѕС‚С‡РµС‚
+        END LOOP; --- Строка движения
+        ---- Найдем все склады которые попадут в отчет
         v_skl_all := '';
         FOR skl IN (SELECT DISTINCT skl.azs_name skl
                       FROM parus.selectlist   l,
@@ -606,21 +606,22 @@ BEGIN
           v_skl_all := substr(v_skl_all, 1, 250) || '...';
         END IF;
         prsg_excel.cell_value_write(cell_zag1,
-                                    'РљР°СЂС‚РѕС‡РєР°' || chr(10) || 'Р·Р° РїРµСЂРёРѕРґ СЃ ' ||
-                                    to_char(pin_d1, 'DD.MM.YYYY') || ' РїРѕ ' ||
-                                    to_char(pin_d2, 'DD.MM.YYYY') || chr(10) || 'РїРѕ СЃРєР»Р°РґР°Рј' ||
+                                    'Карточка' || chr(10) || 'за период с ' ||
+                                    to_char(pin_d1, 'DD.MM.YYYY') || ' по ' ||
+                                    to_char(pin_d2, 'DD.MM.YYYY') || chr(10) || 'по складам' ||
                                     substr(v_skl_all, 2));
         prsg_excel.line_delete(line1);
         prsg_excel.line_delete(line_det);
         prsg_excel.line_delete(line3);
-      END LOOP; --- РЎС‚СЂР°РЅРёС†Р° РєР°СЂС‚РѕС‡РєРё
+      END LOOP; --- Страница карточки
     ELSE
       p_exception(0,
-                  'РР· РґР°РЅРЅРѕРіРѕ СЂР°Р·РґРµР»Р° РїРµС‡Р°С‚СЊ РєР°СЂС‚РѕС‡РєРё РµС‰Рµ РЅРµ РЅР°СЃС‚СЂРѕРµРЅР°');
+                  'Из данного раздела печать карточки еще не настроена');
   END CASE;
-  p_exception(v_fl, 'РџРѕ СѓРєР°Р·Р°РЅРЅС‹Рј РґР°РЅРЅС‹Рј РґР°РЅРЅС‹С… РЅРµ РЅР°Р№РґРµРЅРѕ');
+  p_exception(v_fl, 'По указанным данным данных не найдено');
   prsg_excel.sheet_delete(sh);
 END;
 /*
   grant execute on parus.UDO_P_KART_TOVAR_2 to public;
   */
+/

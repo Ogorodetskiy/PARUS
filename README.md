@@ -1,5 +1,5 @@
 # PARUSeaver.io/product/dbeaver
-<img src="https://github.com/Ogorodetskiy/PARUS/tree/main/parus8.png" width="400"/>
+<img src="https://github.com/Ogorodetskiy/PARUS/tree/main/IMG/Parus8.png" width="400"/>
 EXCEL reports for Parus 8 on Oracle and other useful files <br>
 
 
@@ -12,8 +12,10 @@ EXCEL reports for Parus 8 on Oracle and other useful files <br>
 
 ##  Отчеты
 
-1. Карточка товара
-2. Карточка товара по форме  
+1. "0001 Карточка товара"
+2. "0002 Карточка товара (по форме 0504041)"  
+3. "0003 Журнал учета операций оборота ЛС  Приказ № 378н ПРИЛ №3"
+4. "0004 Карточка товара из обороки Бкхгалтерского учета"
 
 
 
