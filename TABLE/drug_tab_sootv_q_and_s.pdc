@@ -1,0 +1,41 @@
+-- Create table
+create table PARUS.DRUG_TAB_SOOTV_Q_AND_S
+(
+  sauthid       VARCHAR2(80) not null,
+  sesid         NUMBER(17) not null,
+  vid           VARCHAR2(80) not null,
+  company       NUMBER(17) not null,
+  name          VARCHAR2(160),
+  modif_code    VARCHAR2(40),
+  nommodif      NUMBER(17),
+  nomnmodifpack NUMBER(17),
+  n_q           NUMBER(17,2) default 0,
+  n_s           NUMBER(17,2) default 0,
+  tr_q          NUMBER(17,2) default 0,
+  tr_s          NUMBER(17,2) default 0,
+  n_type        VARCHAR2(40),
+  n_prf         VARCHAR2(80),
+  n_numb        VARCHAR2(80),
+  n_date        DATE,
+  n_rn          NUMBER(17),
+  tr_prf        VARCHAR2(80),
+  tr_nmb        VARCHAR2(80),
+  tr_rn         NUMBER(17),
+  tr_date       DATE,
+  st_q          NUMBER(17,2) default 0,
+  st_s          NUMBER(17,2) default 0,
+  st_date       DATE,
+  uchet_price   NUMBER(17,2) default 0,
+  doc_price     NUMBER(17,2) default 0
+)
+tablespace PARUS_NEW
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
